@@ -1,0 +1,54 @@
+.App-logo {
+  max-width: 350px;
+  margin: 30px auto;
+  padding: 30px;
+  @media screen and (max-width: 980px) {
+    max-width: 70%;
+  }
+}
+
+.container-header {
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(
+    to right,
+    #70bceb 0%,
+    #c17e68 55%,
+    #70bceb 100%
+  );
+
+  @media screen and (max-width: 980px) {
+    align-content: center;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 0;
+  }
+}
+
+.btn-logout {
+  background-image: linear-gradient(
+    to right,
+    #403b4a 0%,
+    #e7e9bb 51%,
+    #403b4a 100%
+  );
+}
+.btn-logout {
+  padding: 20px 40px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  border: transparent;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 20px 50px;
+  display: block;
+}
+
+.btn-logout:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}

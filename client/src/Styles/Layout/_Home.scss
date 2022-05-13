@@ -1,0 +1,139 @@
+.home-card {
+  margin: 2% auto;
+  color: white;
+}
+label {
+  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: rgb(30, 49, 111);
+}
+h2 {
+  margin: 5px 0 6px 0;
+  font-weight: 700;
+  color: $color-tertiary;
+  font-size: 25px;
+}
+.card-log {
+  display: flex;
+  justify-content: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.home-content {
+  // margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.connection-form {
+  margin: 25px 0 35px 0;
+  border: 5px solid white;
+  border-radius: 15px;
+  box-shadow: 5px 5px 17px 5px #787676;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  font-size: 17px;
+  padding: 15px;
+  width: 40%;
+  color: black;
+
+  background: $color-secondary;
+
+  ul {
+    font-weight: 600;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: 18px;
+
+    li {
+      cursor: pointer;
+      padding: 10px 0;
+      margin: 5px 0;
+    }
+    .active-btn {
+      background-image: linear-gradient(
+        to right,
+        #5d4157 0%,
+        #a8caba 51%,
+        #5d4157 100%
+      );
+      padding: 10px 20px;
+
+      text-align: center;
+      // text-transform: uppercase;
+      transition: 0.5s;
+      background-size: 200% auto;
+      color: white;
+      box-shadow: 0 0 20px #eee;
+      border-radius: 10px;
+      display: block;
+
+      &:hover {
+        background-position: right center; /* change the direction of the change here */
+        color: rgb(55, 8, 66);
+        text-decoration: none;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .btn-log {
+    // padding: 9px;
+    // border-radius: 10px;
+    // margin-top: 10px;
+    font-size: 21px;
+    background-image: linear-gradient(
+      to right,
+      #5d4157 0%,
+      #a8caba 51%,
+      #5d4157 100%
+    );
+    padding: 10px 0;
+    font-weight: 800;
+    text-align: center;
+    // text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 15px;
+    display: block;
+    border: none;
+
+    &:hover {
+      background-position: right center; /* change the direction of the change here */
+      color: rgb(55, 8, 66);
+      text-decoration: none;
+      font-weight: 800;
+    }
+  }
+  input {
+    margin: 15px 0;
+    font-size: 16px;
+    padding: 8px 15px;
+    border-radius: 10px;
+    border: none;
+  }
+  .title-content {
+    margin: 5px;
+  }
+
+  @media screen and (max-width: 980px) {
+    align-content: center;
+    flex-direction: column;
+    gap: 5px;
+    width: 90%;
+    margin-left: 0;
+    margin-top: 8%;
+  }
+}

@@ -1,0 +1,121 @@
+.card-profile {
+  // display: flex;
+  justify-content: center;
+
+  box-shadow: 5px 5px 7px 5px $color-shadow;
+  // border: 5px solid white;
+  border-radius: 20px;
+  width: 60%;
+
+  margin: 40px auto;
+  background-color: aliceblue;
+  @media screen and (max-width: 1100px) {
+    width: 70%;
+    font-size: 14px;
+  }
+}
+.container {
+  color: rgb(55, 8, 66);
+  padding-top: 10px;
+  display: flex;
+  border-radius: 20px;
+  flex-direction: column;
+  gap: 10px;
+  background-image: linear-gradient(
+    to right,
+    #91c0dd 0%,
+    #c0d2de 35%,
+    #d0937f 100%
+  );
+  align-items: center;
+  .change-picture,
+  .change-profil {
+    color: rgb(55, 8, 66);
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 15px;
+    background-image: linear-gradient(
+      to right,
+      #403b4a 0%,
+      #e7e9bb 51%,
+      #403b4a 100%
+    );
+
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    border: transparent;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px #eee;
+
+    display: block;
+    &:hover {
+      background-position: right center; /* change the direction of the change here */
+      text-decoration: none;
+    }
+  }
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(67, 6, 93);
+
+  &__img-profil {
+    width: 30%;
+    overflow: hidden;
+    @media screen and (max-width: 1200px) {
+      width: 40%;
+    }
+  }
+}
+.__imgPicture {
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom: 10px;
+}
+
+.content {
+  color: rgb(27, 26, 26);
+  font-weight: 600;
+  font-size: 18px;
+  margin: 10px 0;
+  font-style: italic;
+}
+
+.content-profil {
+  font-style: italic;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 18px;
+  margin-bottom: 15px;
+  & h3 {
+    font-style: normal;
+    font-size: 24px;
+    color: #400d4e;
+  }
+}
+
+.input {
+  width: 300px;
+  min-width: 100px;
+  margin-bottom: 20px;
+  padding: 8px 0 8px 10px;
+  border-radius: 15px;
+  @media screen and (max-width: 1200px) {
+    max-width: 80%;
+  }
+
+  &::placeholder {
+    color: purple;
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
