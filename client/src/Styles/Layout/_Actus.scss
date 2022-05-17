@@ -1,7 +1,9 @@
 .container-cards {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 70vh;
+  margin: 0 auto;
+  @media screen and (max-width: 700px) {
+    margin: 0 20px;
+     }
 }
 .profil-post {
   display: flex;
@@ -41,16 +43,16 @@
   display: flex;
   border-radius: 10px;
   flex-direction: column;
-  width: 30%;
+  // width: 30%;
   padding: 10px;
   // height: 400px;
   &:hover {
     transform: scale(1.01);
   }
-  @media screen and (max-width: 980px) {
-    margin: 15px;
-    width: 80%;
-  }
+  // @media screen and (max-width: 980px) {
+  //   margin: 15px;
+  //   width: 80%;
+  // }
 }
 
 .post-content {

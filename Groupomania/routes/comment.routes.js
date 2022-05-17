@@ -13,8 +13,8 @@ router.put('/comment/:id', auth, commentController.modifyComment);
 router.delete('/comment/:id', auth, commentController.deleteComment);
 
 // //TROUVER UN COMM
-router.get('/', auth,commentController.getOneComment);
+router.get('/', auth, commentController.getOneComment);
 // //TROUVER TOUS LES COMM
-router.get('/comment/', auth,commentController.getAllComment);
+router.get('/comment/', auth, commentController.getAllComment);
 
 module.exports = router;

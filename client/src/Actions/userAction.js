@@ -26,7 +26,7 @@ export function getRegister(email, password, firstName, lastName) {
     lastName: lastName,
   };
 
-  console.log(user);
+ 
 
   return axios
     .post(api + '/api/user/signup', user)

@@ -10,13 +10,13 @@ export default function Profile() {
   const [firstName, setfirstName] = useState();
   const [lastName, setlastName] = useState();
   const [email, setEmail] = useState();
-  const [profilePicture, setProfilePicture] = useState();
+  const [profilePicture, setProfilePicture] = useState(null);
   const [updateMode, setupdateMode] = useState(false);
 
   const accessToken = JSON.parse(localStorage.getItem('token')).token;
-  console.log(accessToken);
+  // console.log(accessToken);
   const id = JSON.parse(localStorage.getItem('token')).userId;
-  console.log(id);
+  // console.log(id);
 
   const handleModals = (e) => {
     if (e.target.id === 'update') {
@@ -41,6 +41,7 @@ export default function Profile() {
         lastName: res.data.lastName,
         profilePicture: res.data.profilePicture,
       });
+      console.log('RES', res.data);
     };
     dataAxios();
   }, [id, accessToken]);
@@ -71,31 +72,39 @@ export default function Profile() {
 
   //fonction pour modifier la photo du user
   const modifyPicture = () => {
+    // Fonction qui va nous permettre de modifier l'image
     const formData = new FormData();
     formData.append('images', profilePicture);
     formData.append('userId', id);
-    //console.log(id);
-    axios
-      .put(api + '/api/user/' + id, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+
+    const regex = /\.(jpe?g|png|gif)$/i;
+    const checkType = profilePicture.type.match('image/', regex);
+
+    if (checkType !== null) {
+      axios
+        .put(`${api}/api/user/${id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      alert('Veuillez renseigner un fichier de type image.');
+    }
   };
-  //suppression du compte
+ 
+  // //suppression du compte
 
   const deleteAccount = () => {
     console.log('suppression du compte');
     //message de confirmation de suppression du compte
   };
-  console.log(userData);
 
   return (
     <>
@@ -104,7 +113,6 @@ export default function Profile() {
           <div className="container">
             <div className="title">Profil de {userData.firstName}</div>
             <div className="title title__img-profil">
-              <label className="center flex-col">Ma photo :</label>
               <br />
               {userData.profilePicture ? (
                 <img
@@ -119,45 +127,26 @@ export default function Profile() {
                   alt="img-profil"
                 />
               )}
-
-              <form onSubmit={modifyPicture} className="image-profil">
-                {/* Modifier la photo de profile */}
-                <input
-                  type="file"
-                  accept=".png, .jpg, .jpeg, .gif"
-                  name="profilePicture"
-                  onChange={(e) => setProfilePicture(e.target.files[0])}
-                ></input>
-
-                <button className="change-profil">Enregistrer ma photo</button>
-              </form>
-             
             </div>
             <form onSubmit={saveUpdateProfil} className="content-profil">
               <h3> Nom: {userData.lastName}</h3>
               <input
                 type="text"
-                // placeholder={userData.lastName}
                 className="input "
-                value={lastName}
                 onChange={(e) => setlastName(e.target.value)}
                 required
               ></input>
               <h3>Prénom: {userData.firstName}</h3>
               <input
                 type="text"
-                // placeholder={userData.firstName}
                 className="input __firstName"
-                value={firstName}
                 onChange={(e) => setfirstName(e.target.value)}
                 required
               ></input>
               <h3>Adresse email : {userData.email}</h3>
               <input
                 type="text"
-                // placeholder=
                 className="input __email"
-                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               ></input>
             </form>
@@ -180,25 +169,36 @@ export default function Profile() {
                   className="__imgPicture"
                   alt="img profil"
                   src={userData.profilePicture}
-                  name="profilePicture"
+                  name="images"
                 ></img>
               ) : (
                 <img className="__imgPicture" src={pictureProfile} alt="" />
               )}
             </div>
-            {/* <button className="change-picture" onClick={modifyPicture}>
-              <FontAwesomeIcon className="btn-upload" icon={faUpload} /> Changez
-              ma photo
-            </button> */}
 
-            <form className="content-profil">
+            <form onSubmit={modifyPicture} className="pict-prof">
+              {' '}
+              {/* Modifier la photo de profile */}
+              <label className="pict-prof">
+                Changer la photo de profil :<span></span>
+                <input
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .gif"
+                  name="images"
+                  onChange={(e) => setProfilePicture(e.target.files[0])}
+                ></input>
+              </label>
+              <br />
+              <button className="btn pict-prof">Enregistrer</button>
+            </form>
+            <div className="content-profil">
               <h3> Nom: </h3>
               <div className="profil-content">{userData.lastName}</div>
               <h3>Prénom:</h3>
               <div className="profil-content">{userData.firstName}</div>
               <h3>Adresse email :</h3>
               <div className="profil-content"> {userData.email}</div>
-            </form>
+            </div>
             <button
               className="change-profil"
               id="update"

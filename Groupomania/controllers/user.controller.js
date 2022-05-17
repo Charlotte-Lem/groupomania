@@ -59,6 +59,19 @@ exports.userLogin = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
+//trouver tous les users
+exports.userGetAll = (req, res, next) => {
+  User.findAll()
+    .then((users) => {
+      res.status(200).json(users);
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error.message,
+      });
+    });
+};
+
 //Trouver un user
 exports.userGet = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
@@ -74,52 +87,76 @@ exports.userDelete = (req, res, next) => {
 };
 
 //modifier un user
-exports.userModify = (req, res, next) => {
-  // need content
-
+exports.userModify = (req, res) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
-      // set data to modify
-      let newUser = { ...req.body };
-      if (req.file) {
-        // delete old picture
+      const userObj = req.file
+        ? {
+            ...req.body,
+            profilePicture: `${req.protocol}://${req.get('host')}/images/${
+              req.file.filename
+            }`,
+          }
+        : { ...req.body };
+      if (req.file == null) {
+        User.update({ ...userObj }, { where: { id: req.params.id } })
+          .then(() => res.status(200).json({ message: 'Photo modifiée !' }))
+          .catch((error) => res.status(400).json({ error }));
+      } else {
         const filename = user.profilePicture.split('/images/')[1];
-        if (filename !== 'defaultUserPicture.png') {
-          fs.unlink(`./images/${filename}`, () => {});
-        }
-        newUser = {
-          ...newUser,
-          profilePicture: `${req.protocol}://${req.get('host')}/images/${
-            req.file.filename
-          }`,
-        };
+        fs.unlink(`images/${filename}`, () => {
+          User.update({ ...userObj }, { where: { id: req.params.id } })
+            .then(() => res.status(200).json({ message: 'User modifiée !' }))
+            .catch((error) => res.status(400).json({ error }));
+        });
       }
-      return newUser;
     })
-    .then((newUser) => {
-      return User.update(
-        {
-          ...newUser,
-        },
-        { where: { id: req.params.id } }
-      ).catch((error) => res.status(500).send({ error }));
-    })
-    .then(() => {
-      return User.findOne({ where: { id: req.params.id } });
-    })
-    .then((user) => {
-      // if success, send new informations
-      res.status(200).send({
-        userId: user.id,
-        profilePicture: user.profilePicture,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        message: 'profil mise a jour',
-      });
-    })
-    .catch((error) => res.status(500).send({ error }));
+    .catch((error) => res.status(500).json({ error }));
 };
+
+// User.findOne({ where: { id: req.params.id } })
+//   .then((user) => {
+//     // set data to modify
+//     let newUser = { ...req.body };
+//     if (req.file) {
+//       // delete old picture
+//       const filename = user.profilePicture.split('/images/')[1];
+//       if (filename !== 'defaultUserPicture.png') {
+//         fs.unlink(`./images/${filename}`, () => {});
+//       }
+//       newUser = {
+//         ...newUser,
+//         profilePicture: `${req.protocol}://${req.get('host')}/images/${
+//           req.file.filename
+//         }`,
+//       };
+//     }
+//     return newUser;
+//   })
+//   .then((newUser) => {
+//     return User.update(
+//       {
+//         ...newUser,
+//       },
+//       { where: { id: req.params.id } }
+//     ).catch((error) => res.status(500).send({ error }));
+//   })
+//   .then(() => {
+//     return User.findOne({ where: { id: req.params.id } });
+//   })
+//   .then((user) => {
+//     // if success, send new informations
+//     res.status(200).send({
+//       userId: user.id,
+//       profilePicture: user.profilePicture,
+//       email: user.email,
+//       firstName: user.firstName,
+//       lastName: user.lastName,
+//       message: 'profil mise a jour',
+//     });
+//   })
+//   .catch((error) => res.status(500).send({ error }));
+
 //   if (req.file) {
 //     User.findOne({ where: { id: req.params.id } })
 //       .then((user) => {
@@ -154,16 +191,3 @@ exports.userModify = (req, res, next) => {
 //     }
 //   });
 // };
-
-//trouver tous les users
-exports.userGetAll = (req, res, next) => {
-  User.findAll()
-    .then((users) => {
-      res.status(200).json(users);
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error.message,
-      });
-    });
-};

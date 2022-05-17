@@ -1,7 +1,6 @@
 const Comment = require('../models/comment.model');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const Like = require('../models/like.model');
 const jwt = require('jsonwebtoken');
 
 //CREER UN COMM
@@ -21,7 +20,7 @@ exports.createComment = (req, res, next) => {
 };
 //SUPPRIMER UN COMM
 exports.deleteComment = (req, res, next) => {
-  Comment.destroy({ where: { id: req.params.id } })
+  Comment.destroy({ where: { commentId: req.params.id } })
     .then(() => res.status(200).json({ message: 'Commentaire supprimé' }))
     .catch((error) => res.status(400).json({ error }));
 };
@@ -53,7 +52,7 @@ exports.getAllComment = (req, res, next) => {
 exports.modifyComment = (req, res, next) => {
   const updateComment = req.body;
 
-  Comment.update(updateComment, { where: { id: req.params.id } })
+  Comment.update(updateComment, { where: { commentId: req.params.id } })
     .then(() => res.status(201).json({ message: 'Commentaire a été modifié' }))
     .catch((error) => {
       console.error(error);

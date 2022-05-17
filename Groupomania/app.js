@@ -5,7 +5,7 @@ const path = require('path');
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const commentRoutes = require('./routes/comment.routes');
-const likeRoutes = require('./routes/like.routes');
+
 // const requireAuth = require ('./middleware/auth.middleware')
 // const cors = require('cors');
 
@@ -39,18 +39,18 @@ app.use(express.urlencoded({ extended: true }));
 //package express rate limit pour limiter les demandes répétées aux API
 const rateLimit = require('express-rate-limit');
 //configuration de express rate limit
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000,
-  // 10 minutes
-  max: 200,
-  // Limite a 100 les requetes de chaque IP pendant 15 minutes
-  standardHeaders: true,
-  // Retourne les infos rate limit dans le headers `RateLimit-*` headers
-  legacyHeaders: false,
-  //Désactive les `X-RateLimit-*` headers
-});
-// Applique le middleware rateLimit pour toutes les requêtes
-app.use(limiter);
+// const limiter = rateLimit({
+//   windowMs: 10 * 60 * 1000,
+//   // 10 minutes
+//   max: 200,
+//   // Limite a 100 les requetes de chaque IP pendant 15 minutes
+//   standardHeaders: true,
+//   // Retourne les infos rate limit dans le headers `RateLimit-*` headers
+//   legacyHeaders: false,
+//   //Désactive les `X-RateLimit-*` headers
+// });
+// // Applique le middleware rateLimit pour toutes les requêtes
+// app.use(limiter);
 
 /*helmet configure de manière appropriée des en-têtes HTTP et aide a protéger 
  l'application contre certaines vulnérabilités*/
@@ -62,7 +62,6 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use('/api/post', postRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api', commentRoutes);
-app.use('/api', likeRoutes);
 
 Db.sync()
   .then(console.log('Connexion à la bdd réussie'))

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
-import url from '../../Utils/urlApi';
+// import url from '../../Utils/urlApi';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLogin } from '../../Actions/userAction';
@@ -24,24 +24,23 @@ export default function SignIn() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    getLogin(user.email, user.password)
-      .then((response) => {
-        const userId = response.userId;
-        localStorage.setItem('token', JSON.stringify(response));
-        console.log(response);
-        // console.log(userId);
-        // localStorage.setItem('Token', response.token);
-        navigate(`/profil/${userId}`);
-        // if (res.data.errors) {
-        //   emailError.innerHTML = res.data.errors.email;
-        //   passwordError.innerHTML = res.data.errors.password;
-        // }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (user.email | (user.password === '')) {
+      alert('Veuillez remplir tous les champs');
+      window.location.reload(false);
+    } else {
+      getLogin(user.email, user.password)
+        .then((response) => {
+          const userId = response.userId;
+          localStorage.setItem('token', JSON.stringify(response));
+          console.log(response);
+          navigate(`/profil/${userId}`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
- 
+
   const handleInput = (e) => {
     if (e.target.classList.contains('inp-email')) {
       const newObjState = { ...user, email: e.target.value };

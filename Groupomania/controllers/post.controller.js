@@ -1,6 +1,6 @@
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const Like = require('../models/like.model');
+
 const Comment = require('../models/comment.model');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
@@ -26,10 +26,6 @@ exports.createPost = (req, res, next) => {
 //MODIF POST
 exports.updatePost = (req, res, next) => {
   Post.findOne({ where: { postId: req.params.id } }).then((post) => {
-    // if (!post) {
-    //   return res.status(400).json({ message: `Ce post est introuvable` });
-    // }
-
     const postObject = req.file
       ? {
           ...req.body,

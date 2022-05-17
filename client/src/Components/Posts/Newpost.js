@@ -78,11 +78,11 @@ export default function Newpost() {
   return (
     <form onSubmit={handleSubmit} className="edit-post">
       <div className="title-post">Créer une publication</div>
-      <textarea
+      <input
         value={post.description}
         onChange={handleInput}
         id="publish-description"
-      ></textarea>
+      ></input>
       <br />
       <label htmlFor="imagePost" className="htmlFor">
         <input

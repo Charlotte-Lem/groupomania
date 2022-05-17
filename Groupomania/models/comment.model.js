@@ -18,7 +18,7 @@ const Comment = sequelize.define(
 
   {
     freezeTableName: true,
-    timestamps: false,
+    
   }
 );
 

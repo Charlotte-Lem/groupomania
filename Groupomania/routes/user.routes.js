@@ -36,7 +36,7 @@ router.post(
 router.post('/login', userController.userLogin);
 
 //modif user
-router.put('/:id',auth, multer, userController.userModify);
+router.put('/:id', auth, multer, userController.userModify);
 
 //user
 router.get('/:id', auth, multer, userController.userGet);

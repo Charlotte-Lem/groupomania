@@ -17,6 +17,20 @@ export function getAllPost() {
       return false;
     });
 }
+export function getPost(postId) {
+  return axios
+    .get(api + '/api/post/' + postId, {
+      headers: { Authorization: 'Bearer ' + token.token },
+    })
+    .then(function (response) {
+      console.log('ONE POST BY ID', response);
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log(error.message);
+      return false;
+    });
+}
 
 export function newPost(description, imagePost) {
   const data = new FormData();
@@ -60,7 +74,6 @@ export function updatePost(postId) {
       return false;
     });
 }
-
 
 // const handlePostUpdate = (postId) => {
 //   axios
@@ -127,6 +140,25 @@ export function allComment() {
     })
     .then(function (response) {
       console.log('ALL COMMENT', response);
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log(error.message);
+      return false;
+    });
+}
+
+export function deleteComment(commentId) {
+  return axios
+    .delete(api + '/api/comment/' + commentId, {
+      headers: {
+        Authorization: 'Bearer ' + token.token,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(function (response) {
+      console.log('COMM DELETE', response);
       return response.data;
     })
     .catch(function (error) {
