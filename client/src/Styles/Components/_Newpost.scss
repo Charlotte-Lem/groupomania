@@ -15,10 +15,11 @@
 
 .title-post {
   margin-bottom: 5px;
-  font-size: 18px;
+  padding: 9px;
+  font-size: 30px;
   font-weight: 700;
   font-style: italic;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   text-transform: uppercase;
   background: linear-gradient(to right, #0e206f 0%, #cd623f 55%, #0e206f 100%);
   background-clip: text;
@@ -31,8 +32,8 @@
     #e7e9bb 51%,
     #403b4a 100%
   );
-
-  padding: 5px;
+  margin-top: 20px;
+  padding: 10px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -42,14 +43,13 @@
   font-weight: 700;
   font-size: 16px;
   box-shadow: 0 0 20px #eee;
-  border-radius: 20px;
-  width: 50px;
-}
-
-.publish-post:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
+  border-radius: 25px;
+  width: 90px;
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 #img.file-upload-button {

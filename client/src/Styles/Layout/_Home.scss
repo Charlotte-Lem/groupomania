@@ -1,12 +1,12 @@
 .home-card {
   margin: 2% auto;
   color: white;
-}
-label {
-  margin-bottom: 8px;
-  font-size: 17px;
-  font-weight: 700;
-  color: rgb(30, 49, 111);
+  &.label {
+    margin-bottom: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    color: rgb(30, 49, 111);
+  }
 }
 h2 {
   margin: 5px 0 6px 0;

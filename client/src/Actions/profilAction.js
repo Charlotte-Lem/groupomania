@@ -8,13 +8,13 @@ export function getOneUser(id, token) {
     .get(api + '/api/user/' + id, {
       headers: { Authorization: 'Bearer ' + token },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
-      return true;
+      return response;
     })
-    .catch(function (error) {
-      console.log(error);
-      return false;
+    .catch((error) => {
+      console.log(error.message);
+      return error;
     });
 }
 export function editUser(firstName, lastName, profilePicture) {
@@ -35,12 +35,26 @@ export function editUser(firstName, lastName, profilePicture) {
         'Content-Type': 'application/json',
       },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
-      return true;
+      return response;
     })
-    .catch(function (error) {
-      console.log(error);
-      return false;
+    .catch((error) => {
+      console.log(error.message);
+      return error;
+    });
+}
+export function deleteUser() {
+  return axios
+    .delete(api + '/api/user/' + token.userId, {
+      headers: { Authorization: 'Bearer ' + token.token },
+    })
+    .then((response) => {
+      console.log(response);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.message);
+      return error;
     });
 }

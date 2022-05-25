@@ -10,12 +10,13 @@ export default function Signup() {
   const navigate = useNavigate();
   const params = useParams();
   console.log(params);
-  
+
   const [user, setUser] = useState({
     email: '',
     firstName: '',
     lastName: '',
     password: '',
+    msgError: '',
   });
 
   const { userForm } = useSelector((state) => ({
@@ -24,6 +25,8 @@ export default function Signup() {
   }));
 
   const handleForm = (e) => {
+    e.preventDefault();
+
     async function repRegister() {
       const result = getRegister(
         user.email,
@@ -32,23 +35,35 @@ export default function Signup() {
         user.lastName
       );
       console.log(result);
+      if (!result) {
+        setUser({
+          ...user,
+          msgError: 'Erreur : Cette email existe déjà',
+        });
+      } else {
+        dispatch({
+          type: 'GET_REGISTER',
+          payload: user,
+        });
 
-      dispatch({
-        type: 'GET_REGISTER',
-        payload: user,
-      });
+        setUser({
+          email: '',
+          firstName: '',
+          lastName: '',
+          password: '',
+        });
 
-      setUser({
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
-      });
-
-      navigate('/');
+        navigate('/');
+      }
     }
-
-    repRegister();
+    if (!user.email || !user.firstName || !user.lastName || !user.password) {
+      setUser({
+        ...user,
+        msgError: 'Tous les champs doivent être remplis',
+      });
+    } else {
+      repRegister();
+    }
   };
 
   const handleInput = (e) => {
@@ -142,6 +157,7 @@ export default function Signup() {
           </form>
         </div>
       )}
+      <p className="errorregister">{user.msgError}</p>
     </>
   );
 }

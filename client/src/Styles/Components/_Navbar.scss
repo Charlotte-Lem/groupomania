@@ -11,7 +11,7 @@
 .nav-item {
   display: flex;
   gap: 35px;
-  @media screen and (max-width: 780px) {
+  @media screen and (max-width: 500px) {
     display: flex;
     align-content: center;
     flex-direction: column;
@@ -32,13 +32,13 @@
     background-size: 200% auto;
     color: white;
     box-shadow: 0 0 20px #eee;
-    border-radius: 20px 50px;
+    border-radius: 20px 100px;
     display: block;
     text-decoration: none;
 
     &:hover {
-      background-position: right center; /* change the direction of the change here */
-      color: rgb(55, 8, 66);
+      background-position: right center;
+      // color: rgb(55, 8, 66);
       text-decoration: none;
       font-weight: 600;
     }

@@ -10,11 +10,13 @@ export function getLogin(email, password) {
   };
   return axios
     .post(api + '/api/user/login', user)
-    .then(function (response) {
-      return response.data;
+    .then((response) => {
+      console.log(response);
+      return response;
     })
-    .catch(function (error) {
-      return false;
+    .catch((error) => {
+      console.log(error.message);
+      return error;
     });
 }
 
@@ -26,17 +28,15 @@ export function getRegister(email, password, firstName, lastName) {
     lastName: lastName,
   };
 
- 
-
   return axios
     .post(api + '/api/user/signup', user)
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
-      return true;
+      return response;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
     });
 }
 
@@ -48,13 +48,13 @@ export function getUser(id, token) {
         'Content-Type': 'application/json',
       },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
-      return response.data.user;
+      return response;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
     });
 }
 

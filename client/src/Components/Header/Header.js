@@ -5,7 +5,7 @@ import Logout from '../Log/Logout';
 export default function Header() {
   return (
     <div className="container-header">
-      <img className="App-logo" src={imgNav} alt="" />
+      <img className="App-logo" src={imgNav} alt="logo groupomania" />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import postReducer from './Reducer/postReducer';
 import userReducer from './Reducer/userReducer';
 import inputReducer from './Reducer/inputReducer';
 import commentReducer from './Reducer/commentReducer';
+
 import thunk from 'redux-thunk';
 
 //devtools
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   userReducer,
   inputReducer,
   commentReducer,
+
 });
 
 const store = createStore(

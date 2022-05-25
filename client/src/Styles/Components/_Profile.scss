@@ -1,35 +1,12 @@
-.card-profile {
-  // display: flex;
-  justify-content: center;
-
-  box-shadow: 5px 5px 7px 5px $color-shadow;
-  // border: 5px solid white;
-  border-radius: 20px;
-  width: 60%;
-
-  margin: 40px auto;
-  background-color: aliceblue;
-  @media screen and (max-width: 1100px) {
-    width: 70%;
-    font-size: 14px;
-  }
-}
-.container {
-  color: rgb(55, 8, 66);
-  padding-top: 10px;
+.pict-prof {
+  font-size: 18px;
   display: flex;
-  border-radius: 20px;
   flex-direction: column;
-  gap: 10px;
-  background-image: linear-gradient(
-    to right,
-    #91c0dd 0%,
-    #c0d2de 35%,
-    #d0937f 100%
-  );
+  gap: 5px;
+  flex-wrap: wrap;
   align-items: center;
-  .change-picture,
-  .change-profil {
+  &.btn-post {
+    font-size: 14px;
     color: rgb(55, 8, 66);
     font-weight: 700;
     padding: 8px 18px;
@@ -63,20 +40,27 @@
   color: rgb(67, 6, 93);
 
   &__img-profil {
-    width: 30%;
+    // width: 100%;
+    max-width: 250px;
+    max-height: 150px;
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 10px;
     overflow: hidden;
     @media screen and (max-width: 1200px) {
-      width: 40%;
+      // width: 100%;
     }
   }
 }
 .__imgPicture {
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  object-fit: cover;
-  object-position: center;
-  margin-bottom: 10px;
+  max-width: 150px;
+  // background-size: cover;
+  // background-position: center;
+  // object-fit: cover;
+  // object-position: center;
+  // margin-bottom: 10px;
 }
 
 .content {

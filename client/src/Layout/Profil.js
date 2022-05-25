@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import pictureProfile from '../Assets/defaultUserPicture.png';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import NavBar from '../Components/Nav/Navbar';
 import axios from 'axios';
 import { api } from '../Utils/api';
+import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
   const [userData, setUserData] = useState('');
   const [firstName, setfirstName] = useState();
   const [lastName, setlastName] = useState();
   const [email, setEmail] = useState();
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setProfilePicture] = useState('');
   const [updateMode, setupdateMode] = useState(false);
 
+  const navigate = useNavigate();
   const accessToken = JSON.parse(localStorage.getItem('token')).token;
   // console.log(accessToken);
   const id = JSON.parse(localStorage.getItem('token')).userId;
@@ -72,7 +73,6 @@ export default function Profile() {
 
   //fonction pour modifier la photo du user
   const modifyPicture = () => {
-    // Fonction qui va nous permettre de modifier l'image
     const formData = new FormData();
     formData.append('images', profilePicture);
     formData.append('userId', id);
@@ -98,16 +98,32 @@ export default function Profile() {
       alert('Veuillez renseigner un fichier de type image.');
     }
   };
- 
+
   // //suppression du compte
 
   const deleteAccount = () => {
+    axios
+      .delete(`${api}/api/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(() => {
+        localStorage.clear();
+        navigate('/');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
     console.log('suppression du compte');
     //message de confirmation de suppression du compte
   };
 
   return (
     <>
+      <NavBar />
       {updateMode ? (
         <div className="card-profile">
           <div className="container">
@@ -179,17 +195,15 @@ export default function Profile() {
             <form onSubmit={modifyPicture} className="pict-prof">
               {' '}
               {/* Modifier la photo de profile */}
-              <label className="pict-prof">
-                Changer la photo de profil :<span></span>
-                <input
-                  type="file"
-                  accept=".png, .jpg, .jpeg, .gif"
-                  name="images"
-                  onChange={(e) => setProfilePicture(e.target.files[0])}
-                ></input>
-              </label>
+              <p>Changer la photo de profil :</p>
+              <input
+                type="file"
+                accept=".png, .jpg, .jpeg, .gif"
+                name="images"
+                onChange={(e) => setProfilePicture(e.target.files[0])}
+              ></input>
               <br />
-              <button className="btn pict-prof">Enregistrer</button>
+              <button className="pict-prof btn-post">Enregistrer</button>
             </form>
             <div className="content-profil">
               <h3> Nom: </h3>

@@ -18,6 +18,17 @@ function commentReducer(state = INITIAL_STATE, action) {
         commentArray: newArr,
       };
     }
+    case 'EDIT_CMT': {
+      let newArr = [...state.commentArray];
+      const findIndex = newArr.findIndex(
+        (comment) => comment.id === action.payload.id
+      );
+      newArr[findIndex].message = action.payload.message;
+      return {
+        ...state,
+        commentArray: newArr,
+      };
+    }
     case 'DELETE_CMT': {
       const commentArray = [...state.commentArray];
       let newArr = commentArray.filter((comment) => {
@@ -28,21 +39,21 @@ function commentReducer(state = INITIAL_STATE, action) {
         commentArray: newArr,
       };
     }
-
-    // case 'EDIT_CMT': {
-    //   let newArr = [...state.cmtsArray];
-    //   const findIndex = newArr.findIndex(
-    //     (comment) => comment.id === action.payload.id
-    //   );
-    //   newArr[findIndex].msg = action.payload.msg;
-    //   return {
-    //     ...state,
-    //     cmtsArr: newArr,
-    //   };
-    // }
+    default:
+      return state;
   }
-
-  return state;
 }
 
 export default commentReducer;
+
+// case 'EDIT_CMT': {
+//   let newArr = [...state.cmtsArray];
+//   const findIndex = newArr.findIndex(
+//     (comment) => comment.id === action.payload.id
+//   );
+//   newArr[findIndex].msg = action.payload.msg;
+//   return {
+//     ...state,
+//     cmtsArr: newArr,
+//   };
+// }

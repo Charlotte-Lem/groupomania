@@ -4,18 +4,29 @@ import Home from '../Layout/Home';
 import Actus from '../Layout/Actus';
 import Profil from '../Layout/Profil';
 import NotFound from '../Layout/NotFound';
-import Post from '../Layout/Post';
+import Post from '../Components/Posts/Post';
+
 export default function Router() {
+  const isAuth = localStorage.getItem('token');
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/actus" element={<Actus />} /> */}
-        <Route path="actus/" element={<Actus />}></Route>
-        <Route path="actus/:postId" element={<Post />} />
-        <Route path="/profil/:id" element={<Profil />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      {isAuth ? (
+        <div>
+          <Routes>
+            <Route path="/" element={<Actus />} />
+            <Route path="/:postId" element={<Post />} />
+            <Route path="/profil/:id" element={<Profil />} />
+            <Route path="*" element={<NotFound />} />
+            {/* <Route path='/editprofil' element={<EditProfil />} /> */}
+          </Routes>
+        </div>
+      ) : (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+          {/* <Route path='/register' element={<Register />} /> */}
+        </Routes>
+      )}
     </>
   );
 }

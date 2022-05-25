@@ -1,9 +1,9 @@
 .App-logo {
-  max-width: 350px;
-  margin: 30px auto;
-  padding: 30px;
+  max-width: 550px;
+  margin: 0px auto;
+  padding: 10px;
   @media screen and (max-width: 980px) {
-    max-width: 70%;
+    max-width: 100%;
   }
 }
 
@@ -11,6 +11,7 @@
   background-color: aliceblue;
   display: flex;
   align-items: center;
+  padding: 30px 0;
   background-image: linear-gradient(
     to right,
     #70bceb 0%,
@@ -33,22 +34,19 @@
     #e7e9bb 51%,
     #403b4a 100%
   );
-}
-.btn-logout {
   padding: 20px 40px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
   border: transparent;
-  color: white;
+  color: black;
   box-shadow: 0 0 20px #eee;
   border-radius: 20px 50px;
   display: block;
-}
-
-.btn-logout:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    text-decoration-color: rgb(174, 23, 23);
+    text-decoration: none;
+  }
 }

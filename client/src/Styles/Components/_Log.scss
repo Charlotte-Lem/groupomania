@@ -13,7 +13,7 @@
 }
 .btn-logout {
   font-size: 22px;
-  padding: 20px 40px;
+  padding: 20px 60px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -21,7 +21,7 @@
   border: transparent;
   color: white;
   box-shadow: 0 0 20px #eee;
-  border-radius: 20px 50px;
+  border-radius: 20px 100px;
   display: block;
 }
 
@@ -29,4 +29,11 @@
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}
+.usernotfound,
+.errorregister {
+  margin: 5px;
+  text-align: center;
+  color: red;
+  font-style: italic;
 }

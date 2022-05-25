@@ -1,6 +1,7 @@
 @import './Utils/variables.scss';
 @import './_App.scss';
-
+@import './Components/Footer';
+@import './Components/ScrollToTop';
 @import './Components/Card.scss';
 @import './Components/Header.scss';
 @import './Components/Modal.scss';
@@ -12,3 +13,4 @@
 @import './Layout/Actus';
 @import './Layout/Home';
 @import './Layout/Profile';
+@import './Layout/NotFound';

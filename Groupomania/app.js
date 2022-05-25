@@ -14,11 +14,11 @@ require('dotenv').config();
 
 // analyse le corps des requetes
 const app = express();
-
-//CORS
+//CORSnodemon server
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cross-Origin-Resource-Policy', '*');
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'

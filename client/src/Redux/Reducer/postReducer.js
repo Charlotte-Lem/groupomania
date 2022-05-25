@@ -44,9 +44,9 @@ function postReducer(state = INITIAL_STATE, action) {
         postArray: newArr,
       };
     }
+    default:
+      return state;
   }
-
-  return state;
 }
 
 export default postReducer;

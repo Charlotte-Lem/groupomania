@@ -22,35 +22,47 @@ export default function Newpost() {
     userId: '',
   });
 
-  useEffect(() => {
-    axios
-      .get(api + '/api/user/' + token.userId, {
-        headers: {
-          Authorization: `Bearer ${token.token}`,
-        },
-      })
-      .then((response) => {
-        console.log('USER CONNECTED', response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  });
+  // useEffect(() => {
+  //   axios
+  //     .get(api + '/api/user/' + token.userId, {
+  //       headers: {
+  //         Authorization: `Bearer ${token.token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log('USER CONNECTED', response);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // });
 
   const handleSubmit = () => {
-    async function awaitPost() {
-      newPost(post.description, post.imagePost, post.userId);
-      dispatch({
-        type: 'NEW_POST',
-        payload: post,
-      });
-      setPost({
-        description: '',
-        imagePost: null,
-      });
+    if (!post.description && !post.imagePost) {
+      alert('Votre post est vide');
+    } else {
+      async function awaitPost() {
+        const result = await newPost(
+          post.description,
+          post.imagePost,
+          post.userId
+        );
+        if (!result) {
+          console.log('erreur');
+        } else {
+          dispatch({
+            type: 'NEW_POST',
+            payload: post,
+          });
+          setPost({
+            description: '',
+            imagePost: null,
+          });
+        }
+      }
+      window.location.reload(false);
+      awaitPost();
     }
-    window.location.reload(false);
-    awaitPost();
   };
 
   const handleInput = (e) => {

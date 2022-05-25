@@ -8,6 +8,7 @@ export default function Logout() {
   const logout = () => {
     localStorage.clear();
     navigate('/');
+    window.location.reload();
   };
 
   return (

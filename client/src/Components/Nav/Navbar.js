@@ -12,14 +12,14 @@ export default function Nav() {
     <nav>
       <div className="nav-container">
         <div className="nav-item">
-          <NavLink className="nav-link" to="/actus">
+          <NavLink className="nav-link" to="/">
             Actus
           </NavLink>
           {/* <NavLink className="nav-link" to="/actus">
             Posts
           </NavLink> */}
           <NavLink className="nav-link" to="/profil/:id">
-            <FontAwesomeIcon icon={faUser} />
+            <FontAwesomeIcon icon={faUser} /> Profil
           </NavLink>
           <Logout />{' '}
         </div>

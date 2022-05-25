@@ -3,8 +3,8 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 export default function Log() {
-  const [signInModal, setSignInModal] = useState(true);
-  const [signUpModal, setSignUpModal] = useState(false);
+  const [signInModal, setSignInModal] = useState(false);
+  const [signUpModal, setSignUpModal] = useState(true);
 
   const handleModals = (e) => {
     if (e.target.id === 'register') {
@@ -19,14 +19,8 @@ export default function Log() {
   return (
     <>
       <div className="connection-form">
+      
         <ul>
-          <li
-            onClick={handleModals}
-            id="login"
-            className={signInModal ? 'active-btn' : null}
-          >
-            Se connecter
-          </li>
           <li
             onClick={handleModals}
             id="register"
@@ -34,9 +28,19 @@ export default function Log() {
           >
             S'enregistrer
           </li>
+          <li
+            onClick={handleModals}
+            id="login"
+            className={signInModal ? 'active-btn' : null}
+          >
+            Se connecter
+           
+          </li>
+
         </ul>
         {signInModal && <SignIn />}
         {signUpModal && <SignUp />}
+        
       </div>
     </>
   );

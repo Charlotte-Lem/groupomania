@@ -8,13 +8,13 @@ export function getAllPost() {
     .get(api + '/api/post/', {
       headers: { Authorization: 'Bearer ' + token.token },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log('ALLPOST', response);
       return response.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
     });
 }
 export function getPost(postId) {
@@ -22,13 +22,13 @@ export function getPost(postId) {
     .get(api + '/api/post/' + postId, {
       headers: { Authorization: 'Bearer ' + token.token },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log('ONE POST BY ID', response);
       return response.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
     });
 }
 
@@ -46,51 +46,42 @@ export function newPost(description, imagePost) {
         'Content-Type': 'application/json',
       },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log('CREATE NEWPOST', response);
-      return response.data.data;
-    })
-    .catch(function (error) {
-      console.log(error.message);
-      return false;
-    });
-}
-
-export function updatePost(postId) {
-  return axios
-    .put(api + '/api/post/' + postId, {
-      headers: {
-        Authorization: 'Bearer ' + token.token,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(function (response) {
-      console.log(response);
       return response.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
     });
 }
+export function updatePost(postId, imagePost, description) {
+  // console.log(typeof images, imagePost);
+  let data = new FormData();
+  data.append('description', description);
+  if (typeof images === 'object') {
+    data.append('images', imagePost);
+  }
 
-// const handlePostUpdate = (postId) => {
-//   axios
-//     .put(api + '/api/post/' + postId, {
-//       headers: {
-//         Authorization: 'Bearer ' + token.token,
-//         Accept: 'application/json',
-//         'Content-Type': 'application/json',
-//       },
-//     })
-//     .then((response) => {
-//       console.log('UPDATE DU POST ', response);
-//     })
-//     .catch((error) => {
-//       console.error('ERROR UPDATE', error);
-//     });
-// };
+  if (description || imagePost) {
+    return axios
+      .post(api + '/api/post/' + postId, data, {
+        headers: {
+          Authorization: 'Bearer ' + token.token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        console.log('UPDATE POST', response);
+        return response;
+      })
+      .catch((error) => {
+        console.log(error.message);
+        return error;
+      });
+  }
+}
 export function deletePost(postId) {
   return axios
     .delete(api + '/api/post/' + postId, {
@@ -100,13 +91,13 @@ export function deletePost(postId) {
         'Content-Type': 'application/json',
       },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
       return response.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
     });
 }
 
@@ -119,13 +110,13 @@ export function commentPost(id) {
         'Content-Type': 'application/json',
       },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
       return response.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
     });
 }
 
@@ -138,13 +129,13 @@ export function allComment() {
         'Content-Type': 'application/json',
       },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log('ALL COMMENT', response);
       return response.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
     });
 }
 
@@ -157,12 +148,34 @@ export function deleteComment(commentId) {
         'Content-Type': 'application/json',
       },
     })
-    .then(function (response) {
+    .then((response) => {
       console.log('COMM DELETE', response);
       return response.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error.message);
-      return false;
+      return error;
+    });
+}
+export function editCmt(commentId, message) {
+  let data = {
+    message: message,
+  };
+
+  return axios
+    .put(api + '/api/comment/' + commentId, data, {
+      headers: {
+        Authorization: 'Bearer ' + token.token,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      console.log('COMM UPDATE', response);
+      return response;
+    })
+    .catch((error) => {
+      console.log(error.message);
+      return error;
     });
 }
