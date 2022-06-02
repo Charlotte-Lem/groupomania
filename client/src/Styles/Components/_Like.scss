@@ -1,0 +1,24 @@
+.icon-like {
+  cursor: pointer;
+  &__like {
+    color: $color-primary;
+  }
+}
+
+.post-like {
+  margin-top: 12px;
+
+  font-weight: 700;
+  border: transparent;
+  background-color: transparent;
+  font-size: 30px;
+}
+.post-like_com {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+}

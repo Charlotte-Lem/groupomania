@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import { api } from '../../Utils/api';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { getLogin } from '../../Actions/userAction';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [user, setUser] = useState({
     email: '',
@@ -18,14 +13,8 @@ export default function SignIn() {
     msgError: '',
   });
 
-  const { userForm } = useSelector((state) => ({
-    ...state.userReducer,
-    ...state.inputReducer,
-  }));
-
   const handleLogin = (e) => {
     e.preventDefault();
-    // const userNotFound = document.querySelector('.usernotfound');
     if (user.email === '' || user.password === '') {
       setUser({
         ...user,
@@ -39,11 +28,9 @@ export default function SignIn() {
       axios
         .post(api + '/api/user/login', data)
         .then((response) => {
-          // const userId = response.userId;
           localStorage.setItem('token', JSON.stringify(response.data));
-          // localStorage.setItem('Token', response.data.token);
           console.log(response);
-          // AuthRequired();
+          navigate('/');
           window.location.reload();
         })
         .catch((err) => {
@@ -53,7 +40,7 @@ export default function SignIn() {
             setUser({
               ...user,
               msgError:
-                'Utilisateur non trouvé,verifiez vos informations ou contactez un admin ',
+                'Utilisateur non trouvé, vérifiez vos informations ou contactez un admin ',
             });
 
             console.log('No Token');

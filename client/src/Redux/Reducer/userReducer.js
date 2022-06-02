@@ -1,6 +1,3 @@
-//import { EDIT_USER, GET_USER } from '../../Actions/userAction';
-// import axios from 'axios';
-// import { api } from '../../Utils/api';
 const INITIAL_STATE = {
   userInfo: [],
 };

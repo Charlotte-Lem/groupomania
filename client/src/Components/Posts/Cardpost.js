@@ -7,17 +7,21 @@ import {
   deletePost,
   deleteComment,
   commentPost,
+  likePost,
 } from '../../Actions/postAction';
-
+import Like from './Like';
 import Comment from './Comment';
-
 import { api } from '../../Utils/api';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTrash,
   faPencil,
   faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
+import { FaRegCommentDots, FaRegHeart } from 'react-icons/fa';
+import { BiLike } from 'react-icons/bi';
+
 import { Link } from 'react-router-dom';
 
 //permet de mettre la date sur post et commentaires en FR
@@ -26,7 +30,7 @@ import 'moment/locale/fr';
 moment.locale('fr');
 
 export default function Cardpost(props) {
-  // log props
+  // console.log(props);
   const dispatch = useDispatch();
   const [toggleCmt, setToggleCmt] = useState(false);
   // const [posts, setPost] = useState([]);
@@ -34,6 +38,7 @@ export default function Cardpost(props) {
     postId: props.id,
     description: props.description,
     imagePost: props.imagePost,
+
   });
 
   const { commentArray, postArray, userInfo } = useSelector((state) => ({
@@ -82,30 +87,30 @@ export default function Cardpost(props) {
         console.error(error);
       });
   }, [token.token]);
-  // useEffect(() => {
-  //   allComment();
-  // }, []);
+
   const [message, setMessage] = useState('');
 
   const handleComment = async () => {
-    try {
-      const response = await axios.post(
-        api + `/api/comment/${id}`,
-        { message, postPostId: props.id },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token.token,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      console.log('COMMENTAIRE CREE', response);
-      window.location.reload();
-      return response.data;
-    } catch (error) {
-      console.log(error.message);
-      return false;
+    if (!message) {
+      alert('Votre commentaire est vide');
+    } else {
+      await axios
+        .post(
+          api + `/api/comment/${id}`,
+          { message, postPostId: props.id },
+          {
+            headers: {
+              Authorization: 'Bearer ' + token.token,
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        .then(
+          (response) => console.log('COMMENTAIRE CREE', response),
+          window.location.reload()
+        )
+        .catch((error) => console.log(error));
     }
   };
 
@@ -135,6 +140,11 @@ export default function Cardpost(props) {
     return filterArray.length;
   };
 
+  //fonction like de post
+  const [like, setLike] = useState();
+  const [liked, setLiked] = useState(false);
+
+
   return (
     <div className="|">
       <li className="container-cards" id={props.id}>
@@ -152,13 +162,19 @@ export default function Cardpost(props) {
             <p className=" firstname-post "> {props.firstname}</p>
             <p className=" lastname-post"> {props.lastname}</p>
           </div>
-          <div className="post-content">
+          <div className="header-post">
+            <p className="date-post">{moment(props.createdAt).format('LLL')}</p>
             <p className="description-post">{props.description}</p>
+          </div>
+          <div className="post-content">
             {props.imagePost ? (
               <img className="img-post" alt="post" src={props.imagePost}></img>
             ) : null}
           </div>
-          <p className="date-post">{moment(props.createdAt).format('LLL')}</p>
+     
+          <div className="utils-post">
+          
+          </div>
           <div className="btn-content">
             {token.userId === props.userId || token.admin ? (
               <div className="post-btn-content">
@@ -182,6 +198,7 @@ export default function Cardpost(props) {
               id="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              required
               placeholder="Écrivez un commentaire..."
             />
             <button
@@ -194,14 +211,26 @@ export default function Cardpost(props) {
               <FontAwesomeIcon icon={faPaperPlane} />
             </button>
           </form>
-          <button
-            onClick={() => setToggleCmt(!toggleCmt)}
-            className="toggle-comment"
-          >
-            {toggleCmt
-              ? 'Cacher les commentaires'
-              : `Voir les commentaires (${countComment(props.id)})`}
-          </button>
+          <div className="post-like_com">
+          <Like userId={props.userId} postPostId={props.id} />
+
+            <button
+              onClick={() => setToggleCmt(!toggleCmt)}
+              className="toggle-comment"
+            >
+              {toggleCmt ? (
+                <div className="toggle-comment__count">
+                  <FaRegCommentDots className="toggle-comment__icon" />
+                  <p>{countComment(props.id)}</p>
+                </div>
+              ) : (
+                <div className="toggle-comment__count">
+                  <FaRegCommentDots className="toggle-comment__icon" />
+                  <p>{countComment(props.id)}</p>
+                </div>
+              )}
+            </button>
+          </div>
           {toggleCmt &&
             commentArray.map((comment) =>
               comment.postPostId === props.id ? (
@@ -225,3 +254,4 @@ export default function Cardpost(props) {
     </div>
   );
 }
+

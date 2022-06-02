@@ -1,25 +1,29 @@
 .edit-post {
-  border: 2px solid #dda38f;
+  border: 1px solid #fd2d01;
   border-radius: 25px;
   padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: 15px auto;
   max-width: 70vh;
   @media screen and (max-width: 700px) {
     margin: 0 20px;
+    padding: 10px;
   }
 }
 
 .title-post {
+  @media screen and (max-width: 700px) {
+    font-size: 20px;
+    text-align: center;
+  }
   margin-bottom: 5px;
   padding: 9px;
   font-size: 30px;
   font-weight: 700;
   font-style: italic;
-  font-family: 'Courier New', Courier, monospace;
   text-transform: uppercase;
   background: linear-gradient(to right, #0e206f 0%, #cd623f 55%, #0e206f 100%);
   background-clip: text;
@@ -39,7 +43,7 @@
   transition: 0.5s;
   background-size: 200% auto;
   border: transparent;
-  color: rgb(16, 15, 15);
+  color: $color-tertiary;
   font-weight: 700;
   font-size: 16px;
   box-shadow: 0 0 20px #eee;

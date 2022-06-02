@@ -1,46 +1,78 @@
 .nav-container {
   display: flex;
   justify-content: center;
-  font-size: 22px;
-  margin-top: 20px;
-  gap: 40px;
-  padding-bottom: 20px;
+  margin-top: 5px;
+  padding: 20px;
+  gap: 50px;
   font-weight: 700;
+  border-bottom: 1px dotted $color-primary;
+  @media screen and (max-width: 700px) {
+    display: flex;
+    margin: 20px;
+    gap: 50px;
+    font-weight: 700;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  &__hello {
+    color: $color-primary;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    @media screen and (max-width: 700px) {
+      justify-content: center;
+    }
+  }
+  &__picture {
+    width: 50px;
+    border-radius: 25px;
+    object-fit: cover;
+  }
+  h5 {
+    font-size: 20px;
+    text-align: center;
+    margin-left: 5px;
+  }
 }
 
 .nav-item {
   display: flex;
-  gap: 35px;
-  @media screen and (max-width: 500px) {
+  gap: 20px;
+  @media screen and (max-width: 700px) {
     display: flex;
     align-content: center;
     flex-direction: column;
-    gap: 5px;
+    padding: 10px;
   }
-  a {
-    background-image: linear-gradient(
-      to right,
-      #5d4157 0%,
-      #a8caba 51%,
-      #5d4157 100%
-    );
-    padding: 20px 40px;
+  a,
+  .btn-logout {
+    @media screen and (max-width: 700px) {
+      padding: 18px;
+    }
+    background-color: $color-secondary;
+    padding: 20px;
+    font-size: 20px;
 
     text-align: center;
     text-transform: uppercase;
     transition: 0.5s;
     background-size: 200% auto;
-    color: white;
+    color: $color-tertiary;
     box-shadow: 0 0 20px #eee;
-    border-radius: 20px 100px;
+    border-radius: 45px;
+    border: transparent;
     display: block;
     text-decoration: none;
 
     &:hover {
-      background-position: right center;
-      // color: rgb(55, 8, 66);
+      color: $color-primary;
       text-decoration: none;
       font-weight: 600;
     }
   }
+}
+.btn-logout {
+  font-size: 30px;
 }

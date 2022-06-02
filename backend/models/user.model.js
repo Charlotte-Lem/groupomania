@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Comment = require('./comment.model');
+const Like = require('./like.model');
 
 const Post = require('./post.model');
 
@@ -13,7 +14,7 @@ const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    email: { type: DataTypes.STRING, allowNull: false, unique: true },
+    email: { type: DataTypes.STRING, allowNull: false, unique: 'email' },
     password: { type: DataTypes.STRING, allowNull: false },
     admin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
     firstName: { type: DataTypes.STRING },
@@ -29,6 +30,11 @@ const User = sequelize.define(
     timestamps: false,
   }
 );
+Post.hasMany(Like, { onDelete: 'CASCADE' });
+Like.belongsTo(Post, { onDelete: 'CASCADE' });
+
+User.hasMany(Like, { onDelete: 'CASCADE' });
+Like.belongsTo(User, { onDelete: 'CASCADE' });
 
 User.hasMany(Comment, { onDelete: 'CASCADE' });
 Comment.belongsTo(User, { onDelete: 'CASCADE' });

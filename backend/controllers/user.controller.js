@@ -20,7 +20,7 @@ exports.userSignup = (req, res, next) => {
         data: response.dataValues,
       })
     )
-    .catch((error) => res.status(401).json({ error }));
+    .catch((error) => res.status(200).send({ error }));
 };
 
 //Se connecter

@@ -4,7 +4,7 @@ import NavBar from '../Components/Nav/Navbar';
 import axios from 'axios';
 import { api } from '../Utils/api';
 import { useNavigate } from 'react-router-dom';
-
+import { BiUpload } from 'react-icons/bi';
 export default function Profile() {
   const [userData, setUserData] = useState('');
   const [firstName, setfirstName] = useState();
@@ -195,8 +195,14 @@ export default function Profile() {
             <form onSubmit={modifyPicture} className="pict-prof">
               {' '}
               {/* Modifier la photo de profile */}
-              <p>Changer la photo de profil :</p>
+              {/* <p>Changer la photo de profil :</p> */}
+              <label htmlFor="file" className="label-file">
+                <BiUpload />
+                Changez votre photo
+              </label>
               <input
+                id="file"
+                className="input-file"
                 type="file"
                 accept=".png, .jpg, .jpeg, .gif"
                 name="images"

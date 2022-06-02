@@ -5,7 +5,7 @@ const path = require('path');
 const userRoutes = require('./routes/user.routes');
 const postRoutes = require('./routes/post.routes');
 const commentRoutes = require('./routes/comment.routes');
-
+const likeRoutes = require('./routes/like.routes');
 // const requireAuth = require ('./middleware/auth.middleware')
 // const cors = require('cors');
 
@@ -62,8 +62,9 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use('/api/post', postRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api', commentRoutes);
+app.use('/api/likes', likeRoutes);
 
-Db.sync()
+Db.sync({ alter: true })
   .then(console.log('Connexion à la bdd réussie'))
   .catch((error) => console.log(error));
 

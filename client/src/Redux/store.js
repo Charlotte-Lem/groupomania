@@ -15,7 +15,6 @@ const rootReducer = combineReducers({
   userReducer,
   inputReducer,
   commentReducer,
-
 });
 
 const store = createStore(

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { api } from '../Utils/api';
 
-const token = JSON.parse(localStorage.getItem('token'));
 
 export function getLogin(email, password) {
   let user = {
@@ -32,11 +31,9 @@ export function getRegister(email, password, firstName, lastName) {
     .post(api + '/api/user/signup', user)
     .then((response) => {
       console.log(response);
-      return response;
     })
     .catch((error) => {
       console.log(error.message);
-      return error;
     });
 }
 

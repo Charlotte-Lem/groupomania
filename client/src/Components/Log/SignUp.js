@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SignIn from './SignIn';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { getRegister } from '../../Actions/userAction';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { api } from '../../Utils/api';
 
 export default function Signup() {
-  const [formSubmit, setFormSubmit] = useState(false);
+  const [formSubmit, setFormSubmit] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const params = useParams();
-  console.log(params);
+  // const params = useParams();
 
   const [user, setUser] = useState({
     email: '',
@@ -19,53 +19,41 @@ export default function Signup() {
     msgError: '',
   });
 
-  const { userForm } = useSelector((state) => ({
-    ...state.userReducer,
-    ...state.inputReducer,
-  }));
+ 
+  const [errorres, setErrorres] = useState(null);
 
   const handleForm = (e) => {
+    const errorUser = document.querySelector('.errorUser');
     e.preventDefault();
+    let data = {
+      email: user.email,
+      password: user.password,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
 
-    async function repRegister() {
-      const result = getRegister(
-        user.email,
-        user.password,
-        user.firstName,
-        user.lastName
-      );
-      console.log(result);
-      if (!result) {
-        setUser({
-          ...user,
-          msgError: 'Erreur : Cette email existe déjà',
-        });
-      } else {
-        dispatch({
-          type: 'GET_REGISTER',
-          payload: user,
-        });
-
-        setUser({
-          email: '',
-          firstName: '',
-          lastName: '',
-          password: '',
-        });
-
-        navigate('/');
-      }
-    }
-    if (!user.email || !user.firstName || !user.lastName || !user.password) {
-      setUser({
-        ...user,
-        msgError: 'Tous les champs doivent être remplis',
+    axios
+      .post(api + '/api/user/signup', data)
+      .then((res) => {
+        if (res.data.error) {
+          errorUser.innerHTML = 'Cette email est déjà utilisée';
+        } else {
+          setFormSubmit(false);
+          setUser({
+            email: '',
+            firstName: '',
+            lastName: '',
+            password: '',
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        
       });
-    } else {
-      repRegister();
-    }
   };
 
+ 
   const handleInput = (e) => {
     if (e.target.classList.contains('inp-firstName')) {
       const newObjState = { ...user, firstName: e.target.value };
@@ -85,11 +73,6 @@ export default function Signup() {
   return (
     <>
       {formSubmit ? (
-        <>
-          <SignIn />
-          <h4 className="succes"> "Inscription réussie! Connectez-vous !"</h4>
-        </>
-      ) : (
         <div className="card-log __signup">
           <form
             className="form form-signup"
@@ -98,7 +81,6 @@ export default function Signup() {
             id="sign-up-form"
           >
             <h2>S'enregistrer</h2>
-
             <div className="title-content">
               <label>Prénom</label>
               <br />
@@ -108,8 +90,12 @@ export default function Signup() {
                 placeholder="Prénom"
                 onChange={handleInput}
                 value={user.firstName}
+                maxLength="32"
+                pattern="[A-Za-z]{2,32}"
+                title="Minimum 2 caractères"
+                autoComplete="on"
+                required
               />
-              <div className="prenom error"></div>
             </div>
 
             <div className="title-content">
@@ -118,11 +104,15 @@ export default function Signup() {
               <input
                 className="inp-lastName"
                 type="name"
+                autoComplete="on"
                 placeholder="Nom"
                 onChange={handleInput}
                 value={user.lastName}
+                maxLength="32"
+                pattern="[A-Za-z]{2,32}"
+                title="Minimum 2 caractères"
+                required
               />
-              <div className="nom error"></div>
             </div>
 
             <div className="title-content">
@@ -134,8 +124,10 @@ export default function Signup() {
                 placeholder="Adresse email"
                 onChange={handleInput}
                 value={user.email}
+                required
+                pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$"
+                title="Veuillez vérifiez le format de votre adresse email"
               />
-              <div className="email error"></div>
             </div>
 
             <div className="title-content">
@@ -147,17 +139,24 @@ export default function Signup() {
                 placeholder="Mot de passe"
                 onChange={handleInput}
                 value={user.password}
+                required
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}"
+                title="Le mot de passe doit contenir entre 6 et 20 caractère avec une majuscule une minuscule et un chiffre  "
               />
-              <div className="password error"></div>
             </div>
 
             <button className="btn-log" type="submit" value="S'inscrire">
               S'inscrire
             </button>
+            <div className="errorUser"></div>
           </form>
         </div>
+      ) : (
+        <>
+          <SignIn />
+          <h4 className="succes"> "Inscription réussie! Connectez-vous !"</h4>
+        </>
       )}
-      <p className="errorregister">{user.msgError}</p>
     </>
   );
 }

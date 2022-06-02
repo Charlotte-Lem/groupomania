@@ -3,14 +3,15 @@ import { api } from '../Utils/api';
 
 const token = JSON.parse(localStorage.getItem('token'));
 
-export function getAllPost() {
+export function getAllPost(num) {
   return axios
     .get(api + '/api/post/', {
       headers: { Authorization: 'Bearer ' + token.token },
     })
     .then((response) => {
+      const array = response.data.slice(0, num);
       console.log('ALLPOST', response);
-      return response.data;
+      return array;
     })
     .catch((error) => {
       console.log(error.message);
@@ -176,6 +177,47 @@ export function editCmt(commentId, message) {
     })
     .catch((error) => {
       console.log(error.message);
+      return error;
+    });
+}
+
+export function likePost(postId, like) {
+  let dataLike = {
+    like: like,
+    userId: token.userId,
+  };
+  return axios
+    .post(api + '/api/post/' + postId + '/likes', dataLike, {
+      headers: {
+        Authorization: 'Bearer ' + token.token,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      console.log('POST LIKED', response);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('POST LIKED ERROR', error.message);
+      return error;
+    });
+}
+export function allLike() {
+  return axios
+    .get(api + '/api/likes', {
+      headers: {
+        Authorization: 'Bearer ' + token.token,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      console.log('ALL LIKES', response);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('ALL LIKES ERROR', error.message);
       return error;
     });
 }

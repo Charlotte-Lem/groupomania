@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import 'moment/locale/fr';
 import pictureProfile from '../../Assets/defaultUserPicture.png';
+import { FaRegTrashAlt } from 'react-icons/fa';
+import { ImPencil2 } from 'react-icons/im';
 
 import { deleteComment, editCmt } from '../../Actions/postAction';
 //fontawesome icone import
@@ -71,7 +73,7 @@ export default function Comment(props) {
   };
   //fonction pour edit d'un commentaire
   const editComment = (commentid) => {
-    // fonction editer commentaire
+    // fonction pour commentaire
     async function awaitEditComment() {
       const result = await editCmt(commentid, comment.message);
       if (!result) {
@@ -116,15 +118,15 @@ export default function Comment(props) {
               <div className="edit-btn__comment">
                 <button
                   onClick={(e) => e.preventDefault(handleToggle())}
-                  className="comment-container__btn-edit"
+                  className="comment__edit__btn-edit"
                 >
-                  <FontAwesomeIcon icon={faPencil} />
+                  <ImPencil2 className="comment__edit__btn-edit__pencil" />
                 </button>
                 <button
                   onClick={(e) => e.preventDefault(handleDeleteComm(props.id))}
-                  className="comment-container__btn-edit"
+                  className="comment__edit__btn-edit"
                 >
-                  <FontAwesomeIcon icon={faTrash} />
+                  <FaRegTrashAlt className="comment__edit__btn-edit__trash" />
                 </button>
               </div>
             </>
@@ -133,8 +135,8 @@ export default function Comment(props) {
           )}
         </div>
       </div>
-
-      {toggle ? ( // si le toggle est actif alors on affiche les champs d'édition de commentaire
+    {/* si le toggle est actif alors on affiche les champs d'édition de commentaire */}
+      {toggle ? (
         <div className="cmtcmt">
           <label htmlFor="edit-cmt"></label>
           <input
@@ -152,57 +154,8 @@ export default function Comment(props) {
           </button>
         </div>
       ) : (
-        <p className="cmt2">
-          {/*sinon on affiche tout simplement le message du commentaire*/}
-          {props.message}
-        </p>
+        <p className="cmt2">{props.message}</p>
       )}
     </div>
   );
 }
-//   const token = JSON.parse(localStorage.getItem('token'));
-
-//   const id = JSON.parse(localStorage.getItem('token')).userId;
-//   const [message, setMessage] = useState('');
-
-//   const handleComment = async () => {
-//     console.log('commentaire');
-//     try {
-//       const response = await axios.post(
-//         api + `/api/comment/${id}`,
-//         { message, postPostId: props.postId, userId: props.userId },
-//         {
-//           headers: {
-//             Authorization: 'Bearer ' + token.token,
-//             Accept: 'application/json',
-//             'Content-Type': 'application/json',
-//           },
-//         }
-//       );
-//       console.log('COMMENTAIRE CREE', response);
-//       return response.data;
-//     } catch (error) {
-//       console.log(error.message);
-//       return false;
-//     }
-//   };
-
-//   return (
-//     <div className="comment-container">
-//       <form className="comment-container__comment-form">
-//         <input
-//           className="comment-container__comment-input"
-//           type="text"
-//           id="message"
-//           value={message}
-//           onChange={(e) => setMessage(e.target.value)}
-//           placeholder="Écrivez un commentaire..."
-//         />
-//         <button
-//           onClick={handleComment}
-//           className="comment-container__btn-comment"
-//         > <FontAwesomeIcon icon={faPaperPlane} /></button>
-//       </form>
-//     </div>
-//   );
-// }
