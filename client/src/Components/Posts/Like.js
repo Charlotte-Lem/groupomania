@@ -7,7 +7,6 @@ function Like(props) {
   const [likedAction, setLikedAction] = useState(false);
   const token = JSON.parse(localStorage.getItem('token'));
   const userId = JSON.parse(localStorage.getItem('token')).userId;
-  console.log('props like', props);
   const postId = props.postPostId;
   const getLikes = async () => {
     const { data } = await axios.get(
@@ -21,7 +20,6 @@ function Like(props) {
         },
       }
     );
-    console.log(data);
     setLikes(data.likes.length);
     data.likes.map((like) => {
       if (like.userId === userId && like.postPostId === props.postPostId) {
@@ -48,7 +46,6 @@ function Like(props) {
         }
       )
       .then((res) => {
-        console.log('like', res.data);
         if (res.data.message === 'like removed from post') {
           setLikedAction(false);
         } else if (res.data.message === 'like added to post') {
@@ -60,8 +57,9 @@ function Like(props) {
 
   return (
     <>
-      <div className='like-content'>
+      <div className="like-content">
         <button
+          aria-label="like ou supprime un like "
           className="post-like"
           onClick={() => {
             likePost();

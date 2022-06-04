@@ -5,7 +5,9 @@ export default function NotFound() {
   return (
     <div>
       <h1>Oops, cette page n'existe pas</h1>
-      <button onClick={() => navigate('/')}>Retourner à l'accueil</button>
+      <button aria-label="retour à l'accueil" onClick={() => navigate('/')}>
+        Retourner à l'accueil
+      </button>
     </div>
   );
 }

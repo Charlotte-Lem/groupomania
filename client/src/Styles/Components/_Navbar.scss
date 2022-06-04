@@ -48,6 +48,9 @@
   }
   a,
   .btn-logout {
+    &__icon-logout {
+      font-size: 25px;
+    }
     @media screen and (max-width: 700px) {
       padding: 18px;
     }
@@ -72,7 +75,4 @@
       font-weight: 600;
     }
   }
-}
-.btn-logout {
-  font-size: 30px;
 }

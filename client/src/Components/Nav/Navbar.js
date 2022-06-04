@@ -28,7 +28,6 @@ export default function Nav() {
         lastName: res.data.lastName,
         profilePicture: res.data.profilePicture,
       });
-      console.log('RES', res.data);
     };
     dataAxios();
   }, [id, accessToken]);
@@ -42,7 +41,7 @@ export default function Nav() {
               alt="img profil"
               src={userData.profilePicture}
             ></img>
-            <h5> Hello {userData.firstName}</h5>
+            <h1> Hello {userData.firstName}</h1>
           </div>
         ) : (
           <div></div>

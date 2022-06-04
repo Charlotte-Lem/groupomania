@@ -17,9 +17,7 @@ exports.likePost = async (req, res, next) => {
         userId: UserId,
       },
     });
-    console.log('REQ BODY', req.body);
-
-    console.log('REQ', decodedToken.userId);
+   
     if (found) {
       await found.destroy();
       res.status(200).json({ message: 'like removed from post' });

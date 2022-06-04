@@ -16,7 +16,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 export default function Comment(props) {
-  console.log('PROPS COMMENT ', props);
   const dispatch = useDispatch();
 
   const token = JSON.parse(localStorage.getItem('token'));
@@ -48,21 +47,7 @@ export default function Comment(props) {
     awaitDelComment();
     window.location.reload();
   };
-  // const handleDeleteComm = (commentId) => {
-  //   async function awaitDeleteComment() {
-  //     const result = await deleteComment(commentId);
-  //     if (!result) {
-  //       console.log('erreur');
-  //     } else {
-  //       dispatch({
-  //         type: 'DELETE_CMT',
-  //         payload: commentId,
-  //       });
-  //     }
-  //   }
-  //   awaitDeleteComment();
-  //   window.location.reload();
-  // };
+  
   const handleInput = (e) => {
     if (e.target.id === 'edit-cmt') {
       setComment({
@@ -117,12 +102,14 @@ export default function Comment(props) {
             <>
               <div className="edit-btn__comment">
                 <button
+                  aria-label="Modifier votre commentaire"
                   onClick={(e) => e.preventDefault(handleToggle())}
                   className="comment__edit__btn-edit"
                 >
                   <ImPencil2 className="comment__edit__btn-edit__pencil" />
                 </button>
                 <button
+                  aria-label="Supprimer votre commentaire"
                   onClick={(e) => e.preventDefault(handleDeleteComm(props.id))}
                   className="comment__edit__btn-edit"
                 >
@@ -135,18 +122,19 @@ export default function Comment(props) {
           )}
         </div>
       </div>
-    {/* si le toggle est actif alors on affiche les champs d'édition de commentaire */}
+      {/* si le toggle est actif alors on affiche les champs d'édition de commentaire */}
       {toggle ? (
         <div className="cmtcmt">
           <label htmlFor="edit-cmt"></label>
           <input
             onChange={handleInput}
             value={comment.message}
-            className="cmt1"
+            className="cmt"
             type="text"
             id="edit-cmt"
           />
           <button
+            aria-label="envoyer le commentaire modifié"
             onClick={(e) => e.preventDefault(editComment(props.id))}
             className="cmt"
           >
@@ -154,7 +142,7 @@ export default function Comment(props) {
           </button>
         </div>
       ) : (
-        <p className="cmt2">{props.message}</p>
+        <p className="cmt message">{props.message}</p>
       )}
     </div>
   );

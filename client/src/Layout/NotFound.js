@@ -5,7 +5,11 @@ export default function NotFound() {
   return (
     <div className="err">
       <h1>Oops, cette page n'existe pas</h1>
-      <button className="err btn-post" onClick={() => navigate('/actus')}>
+      <button
+        aria-label=" page d'erreur retour à l'actualités "
+        className="err btn-post"
+        onClick={() => navigate('/actus')}
+      >
         Retourner voir les actualités du moment
       </button>
     </div>

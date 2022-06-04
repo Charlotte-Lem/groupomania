@@ -6,34 +6,35 @@ const ScrollToTop = () => {
   //state qui controle la visibilité du bouton scrolltotop
   const [showTopBtn, setShowTopBtn] = useState(false);
 
-  useEffect(() => {
-    // evenement qui définit l'état du state
+  const visibleScroll = () => {
     // sur true quand l'utilisateur fait défiler 1000pixels
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 1000) {
-        setShowTopBtn(true);
-      } else {
-        setShowTopBtn(false);
-      }
-    });
-  }, []);
+    if (window.pageYOffset > 500) {
+      setShowTopBtn(true);
+    } else {
+      setShowTopBtn(false);
+    }
+  };
 
   //fonction pour la gestion onClick qui ramène vers le haut
-
   const goToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
   };
+  useEffect(() => {
+    // evenement qui définit l'état du state
+
+    window.addEventListener('scroll', visibleScroll);
+    return () => {
+      window.removeEventListener('scroll', visibleScroll);
+    };
+  }, []);
   return (
     <div className="top-to-btm">
       {' '}
       {showTopBtn && (
-        <FaAngleUp
-          className="icon-position icon-style"
-          onClick={ goToTop}
-        />
+        <FaAngleUp className="icon-position icon-style" onClick={goToTop} />
       )}{' '}
     </div>
   );

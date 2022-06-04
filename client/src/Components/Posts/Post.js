@@ -11,14 +11,8 @@ export default function Post(props) {
   const params = useParams(props);
   const navigate = useNavigate();
   const postId = params.postId;
-  console.log(' POSTID', postId);
   const token = JSON.parse(localStorage.getItem('token'));
-  // const id = JSON.parse(localStorage.getItem('token')).userId;
-  // const postState = {
-  //   postId: null,
-  //   imagePost: '',
-  //   description: '',
-  // };
+
   const [currentPost, setCurrentPost] = useState({
     postId: null,
     imagePost: '',
@@ -30,12 +24,10 @@ export default function Post(props) {
     description: props.description,
     imagePost: props.imagePost,
   });
-  console.log(postId);
   useEffect(() => {
     getPost(postId)
       .then((response) => {
         setCurrentPost(response);
-        console.log(response);
       })
       .catch((e) => {
         console.log(e);
@@ -62,9 +54,8 @@ export default function Post(props) {
           'Content-Type': 'application/json',
         },
       })
-      .then((response) => {
+      .then(() => {
         setCurrentPost({ ...currentPost });
-        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -85,10 +76,8 @@ export default function Post(props) {
           'Content-Type': 'multipart/form-data',
         },
       })
-      .then((response) => {
+      .then(() => {
         setImagePost();
-        console.log(response);
-        // navigate('/');
       })
       .catch((error) => {
         console.error(error);
@@ -105,7 +94,7 @@ export default function Post(props) {
           <form className="form-edit" onSubmit={updateCurrentPost}>
             <div className="post-content__edit">
               <label className="post-edit__label" htmlFor="description">
-                Titre :{' '}
+                Votre post :
               </label>
 
               <input
@@ -116,9 +105,14 @@ export default function Post(props) {
                 placeholder="Ecrivez un nouveau titre ici..."
                 // value={currentPost.description}
                 onChange={handleInputChange}
+                aria-label="Ecrivez un nouveau titre ici"
               />
             </div>{' '}
-            <button className="input__btn" type="submit">
+            <button
+              aria-label="modifier le titre du post"
+              className="input__btn"
+              type="submit"
+            >
               Validez
             </button>
           </form>
@@ -146,7 +140,11 @@ export default function Post(props) {
               // value={currentPost.imagePost}
               onChange={(e) => setImagePost(e.target.files[0])}
             ></input>
-            <button className="input__btn" type="submit">
+            <button
+              aria-label="envoyer une nouvelle image du post"
+              className="input__btn"
+              type="submit"
+            >
               Validez
             </button>
           </form>
@@ -155,7 +153,11 @@ export default function Post(props) {
         <div></div>
       )}
       <div className="back">
-        <Link className="btn-post__link" to={`/`}>
+        <Link
+          className="btn-post__link"
+          aria-label="retour au fil d'actualités "
+          to={`/`}
+        >
           Retournez aux actus
         </Link>
       </div>

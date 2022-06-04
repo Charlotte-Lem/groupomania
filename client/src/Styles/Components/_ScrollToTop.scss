@@ -8,11 +8,11 @@
   z-index: 20;
 }
 .icon-style {
-  background-color:$color-primary;
+  background-color: $color-primary;
   border: 2px solid #fff;
   border-radius: 50%;
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: 60px;
   color: #fff;
   cursor: pointer;
   animation: movebtn 1.5s ease-in-out infinite;
@@ -21,7 +21,7 @@
 .icon-style:hover {
   animation: none;
   background: #fff;
-  color:  $color-tertiary;
+  color: $color-tertiary;
   border: 3px solid $color-tertiary;
 }
 //animation du bouton scrolltotop

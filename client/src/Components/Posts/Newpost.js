@@ -61,27 +61,35 @@ export default function Newpost(props) {
 
   return (
     <form onSubmit={handleSubmit} className="edit-post" key={props.postId}>
-      <div className="title-post">Créer une publication</div>
+      <h2 className="title-post">Créer une publication</h2>
+
       <input
         value={post.description}
         onChange={handleInput}
         id="publish-description"
+        aria-label="votre texte ici"
       ></input>
+
       <br />
       <label htmlFor="file" className="label-file">
         <BiUpload className="icon-post" />
         Choisir une image
+        <input
+          type="file"
+          className="input-file"
+          id="file"
+          accept="images/*"
+          onChange={handleInput}
+          aria-label="choisir une image pour un post"
+        />
       </label>
-      <input
-        type="file"
-        className="input-file"
-        id="file"
-        accept="images/*"
-        onChange={handleInput}
-      />
 
-      <button type="button" onClick={handleSubmit} className="publish-post">
-     
+      <button
+        aria-label="envoyer un post modifié"
+        type="button"
+        onClick={handleSubmit}
+        className="publish-post"
+      >
         <FontAwesomeIcon icon={faShare} />
       </button>
     </form>

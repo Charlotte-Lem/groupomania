@@ -30,15 +30,12 @@ import 'moment/locale/fr';
 moment.locale('fr');
 
 export default function Cardpost(props) {
-  // console.log(props);
   const dispatch = useDispatch();
   const [toggleCmt, setToggleCmt] = useState(false);
-  // const [posts, setPost] = useState([]);
   const [post, setPost] = useState({
     postId: props.id,
     description: props.description,
     imagePost: props.imagePost,
-
   });
 
   const { commentArray, postArray, userInfo } = useSelector((state) => ({
@@ -56,7 +53,6 @@ export default function Cardpost(props) {
       })
       .then((response) => {
         setPost(response.data);
-        // console.log('ALL POST ', response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -81,7 +77,6 @@ export default function Cardpost(props) {
       })
       .then((response) => {
         setComment(response);
-        // console.log('ALL COMMENT ', response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -144,46 +139,56 @@ export default function Cardpost(props) {
   const [like, setLike] = useState();
   const [liked, setLiked] = useState(false);
 
-
   return (
-    <div className="|">
-      <li className="container-cards" id={props.id}>
-        <div className="card-container">
+    <ul className="container-cards ">
+      <li className="container-cards card" id={props.id}>
+        <article className="card-container">
           <div className="profil-post ">
             {props.picture ? (
               <img
                 className="pic-post"
-                alt="img profil"
+                alt="image de profil"
                 src={props.picture}
               ></img>
             ) : (
-              <img className="pic-post" src={pictureProfile} alt="" />
+              <img
+                className="pic-post"
+                src={pictureProfile}
+                alt="image de profil"
+              />
             )}
             <p className=" firstname-post "> {props.firstname}</p>
             <p className=" lastname-post"> {props.lastname}</p>
           </div>
           <div className="header-post">
             <p className="date-post">{moment(props.createdAt).format('LLL')}</p>
-            <p className="description-post">{props.description}</p>
+            <h3 className="description-post">{props.description}</h3>
           </div>
           <div className="post-content">
             {props.imagePost ? (
-              <img className="img-post" alt="post" src={props.imagePost}></img>
+              <img
+                className="img-post"
+                alt="image du post"
+                src={props.imagePost}
+              ></img>
             ) : null}
           </div>
-     
-          <div className="utils-post">
-          
-          </div>
+
+          <div className="utils-post"></div>
           <div className="btn-content">
             {token.userId === props.userId || token.admin ? (
               <div className="post-btn-content">
-                <Link className="btn-post" to={`/${props.id}`}>
+                <Link
+                  className="btn-post"
+                  aria-label="lien vers le post"
+                  to={`/${props.id}`}
+                >
                   <FontAwesomeIcon icon={faPencil} />
                 </Link>
                 <button
                   type="button"
                   className="btn-post"
+                  aria-label="Suppression du post"
                   onClick={(e) => e.preventDefault(handleDeletePost(props.id))}
                 >
                   <FontAwesomeIcon icon={faTrash} />
@@ -195,13 +200,18 @@ export default function Cardpost(props) {
             <input
               className="comment-container__comment-input"
               type="text"
-              id="message"
+              id={comment.id}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
               placeholder="Écrivez un commentaire..."
+              aria-label="ecrire un commentaire"
             />
+            <label htmlFor="message" hidden>
+              Écrivez un commentaire
+            </label>
             <button
+              aria-label="envoyer le commentaire"
               onClick={(e) =>
                 e.preventDefault(handleComment(props.id, comment.message))
               }
@@ -212,9 +222,10 @@ export default function Cardpost(props) {
             </button>
           </form>
           <div className="post-like_com">
-          <Like userId={props.userId} postPostId={props.id} />
+            <Like userId={props.userId} postPostId={props.id} />
 
             <button
+              aria-label="afficher les commentaires"
               onClick={() => setToggleCmt(!toggleCmt)}
               className="toggle-comment"
             >
@@ -226,7 +237,7 @@ export default function Cardpost(props) {
               ) : (
                 <div className="toggle-comment__count">
                   <FaRegCommentDots className="toggle-comment__icon" />
-                  <p>{countComment(props.id)}</p>
+                  <h4>{countComment(props.id)}</h4>
                 </div>
               )}
             </button>
@@ -249,9 +260,8 @@ export default function Cardpost(props) {
                 ''
               )
             )}
-        </div>
+        </article>
       </li>
-    </div>
+    </ul>
   );
 }
-

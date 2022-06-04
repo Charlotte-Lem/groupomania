@@ -10,6 +10,8 @@ export default function Footer() {
         src={logofooter}
         alt="logo groupomania"
         style={{ height: 150, width: 200 }}
+        height="200"
+        width="150"
       />
       {/* <h2 className="footer__title">Groupomania</h2> */}
       <a className="footer__link" href="#">

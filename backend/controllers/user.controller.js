@@ -88,11 +88,16 @@ exports.userGet = (req, res, next) => {
 exports.userDelete = (req, res, next) => {
   let token = req.headers.authorization.split(' ')[1];
   let decodedToken = jwt.verify(token, '${process.env.TOKEN}');
-  User.findOne({ where: { id: req.params.id } }).then((user) => {
-    User.destroy({ where: { id: req.params.id } })
-      .then(() => res.status(200).json({ message: 'Utilisateur supprimé ' }))
-      .catch((error) => res.status(400).json({ error }));
-  });
+  let userId = decodedToken.userId;
+  if (req.params.id != userId) {
+    return res.status(401).json({ message: `Not authorized` });
+  } else {
+    User.findOne({ where: { id: req.params.id } }).then((user) => {
+      User.destroy({ where: { id: req.params.id } })
+        .then(() => res.status(200).json({ message: 'Utilisateur supprimé ' }))
+        .catch((error) => res.status(400).json({ error }));
+    });
+  }
 };
 
 //modifier un user
@@ -128,48 +133,3 @@ exports.userModify = (req, res) => {
       .catch((error) => res.status(500).json({ message: error }));
   }
 };
-
-// exports.userModify = (req, res) => {
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// if (!user) {
-//   return res.status(401).json({ message: `User doesn't exist` });
-// }
-// let token = req.headers.authorization.split(' ')[1];
-// let decodedToken = jwt.verify(token, '${process.env.TOKEN}');
-// console.log('DECODED TOKEN', decodedToken);
-// let userId = decodedToken.userId;
-// console.log('DECODED TOKEN', userId);
-// if (req.params.id != userId) {
-//   return res.status(401).json({ message: `Not authorized` });
-// }
-// console.log('USER ID', user.id);
-// const filename = user.profilePicture.split('/images/')[1];
-// console.log(filename);
-//!!!!!!!!!!!!!!!!req.file==null probleme !!!!!!!!!!!
-//!!!!!!!!!!!!!!en comme car bug au premier changement si present !!!!!!
-
-//   User.findOne({ where: { id: req.params.id } })
-//     .then((user) => {
-//       const userObj = req.file
-//         ? {
-//             ...req.body,
-//             profilePicture: `${req.protocol}://${req.get('host')}/images/${
-//               req.file.filename
-//             }`,
-//           }
-//         : { ...req.body };
-//       if (req.file == null) {
-//         User.update({ ...userObj }, { where: { id: req.params.id } })
-//           .then(() => res.status(200).json({ message: 'Photo modifiée !' }))
-//           .catch((error) => res.status(400).json({ error }));
-//       } else {
-//         const filename = user.profilePicture.split('/images/')[1];
-//         fs.unlink(`images/${filename}`, () => {
-//           User.update({ ...userObj }, { where: { id: req.params.id } })
-//             .then(() => res.status(200).json({ message: 'User modifiée !' }))
-//             .catch((error) => res.status(400).json({ error }));
-//         });
-//       }
-//     })
-//     .catch((error) => res.status(500).json({ error }));
-// };

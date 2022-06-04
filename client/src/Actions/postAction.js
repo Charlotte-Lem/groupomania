@@ -57,7 +57,6 @@ export function newPost(description, imagePost) {
     });
 }
 export function updatePost(postId, imagePost, description) {
-  // console.log(typeof images, imagePost);
   let data = new FormData();
   data.append('description', description);
   if (typeof images === 'object') {

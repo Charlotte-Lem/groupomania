@@ -29,7 +29,6 @@ export default function SignIn() {
         .post(api + '/api/user/login', data)
         .then((response) => {
           localStorage.setItem('token', JSON.stringify(response.data));
-          console.log(response);
           navigate('/');
           window.location.reload();
         })
@@ -71,31 +70,39 @@ export default function SignIn() {
         >
           <h2>Se connecter</h2>
           <div className="title-content">
-            <label>Adresse email</label>
-            <br />
-
-            <input
-              className="inp-email"
-              type="email"
-              placeholder="Adresse email"
-              onChange={handleInput}
-              value={user.email}
-            />
+            <label>
+              Adresse email
+              <br />
+              <input
+                className="inp-email"
+                type="email"
+                placeholder="Adresse email"
+                onChange={handleInput}
+                value={user.email}
+              />
+            </label>
           </div>
 
           <div className="title-content">
-            <label>Mot de passe</label>
-            <br />
-            <input
-              className="inp-password"
-              type="password"
-              placeholder="Mot de passe"
-              id="password"
-              onChange={handleInput}
-              value={user.password}
-            />
+            <label>
+              Mot de passe
+              <br />
+              <input
+                className="inp-password"
+                type="password"
+                placeholder="Mot de passe"
+                id="password"
+                onChange={handleInput}
+                value={user.password}
+              />
+            </label>
           </div>
-          <button className="btn-log" type="submit" value="Se connecter">
+          <button
+            className="btn-log"
+            type="submit"
+            value="Se connecter"
+            aria-label="Connexion"
+          >
             Envoyer
           </button>
           <p className="usernotfound"></p>

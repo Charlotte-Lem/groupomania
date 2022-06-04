@@ -15,9 +15,7 @@ export default function Profile() {
 
   const navigate = useNavigate();
   const accessToken = JSON.parse(localStorage.getItem('token')).token;
-  // console.log(accessToken);
   const id = JSON.parse(localStorage.getItem('token')).userId;
-  // console.log(id);
 
   const handleModals = (e) => {
     if (e.target.id === 'update') {
@@ -42,7 +40,6 @@ export default function Profile() {
         lastName: res.data.lastName,
         profilePicture: res.data.profilePicture,
       });
-      console.log('RES', res.data);
     };
     dataAxios();
   }, [id, accessToken]);
@@ -62,7 +59,6 @@ export default function Profile() {
       )
 
       .then((response) => {
-        console.log(response);
         window.location.reload();
       })
 
@@ -109,14 +105,15 @@ export default function Profile() {
           'Content-Type': 'application/json',
         },
       })
-      .then(() => {
+      .then((response) => {
+        navigate('/home');
         localStorage.clear();
-        navigate('/');
+        window.location.reload();
       })
+    
       .catch((error) => {
         console.error(error);
       });
-
     console.log('suppression du compte');
     //message de confirmation de suppression du compte
   };
@@ -127,7 +124,7 @@ export default function Profile() {
       {updateMode ? (
         <div className="card-profile">
           <div className="container">
-            <div className="title">Profil de {userData.firstName}</div>
+            <h3 className="title">Profil de {userData.firstName}</h3>
             <div className="title title__img-profil">
               <br />
               {userData.profilePicture ? (
@@ -145,32 +142,46 @@ export default function Profile() {
               )}
             </div>
             <form onSubmit={saveUpdateProfil} className="content-profil">
-              <h3> Nom: {userData.lastName}</h3>
+              <h3>Nom: {userData.lastName} </h3>
               <input
                 type="text"
                 className="input "
                 onChange={(e) => setlastName(e.target.value)}
+                aria-label="lastname"
                 required
               ></input>
-              <h3>Prénom: {userData.firstName}</h3>
+
+              <h3> Prénom: {userData.firstName}</h3>
+
               <input
                 type="text"
                 className="input __firstName"
                 onChange={(e) => setfirstName(e.target.value)}
                 required
+                aria-label="firstName"
               ></input>
-              <h3>Adresse email : {userData.email}</h3>
+
+              <h3>Adresse email : {userData.email} </h3>
               <input
                 type="text"
                 className="input __email"
                 onChange={(e) => setEmail(e.target.value)}
+                aria-label="email"
               ></input>
             </form>
-            <button className="change-profil" onClick={saveUpdateProfil}>
+            <button
+              aria-label=" enregistrer les modification du profil"
+              className="change-profil"
+              onClick={saveUpdateProfil}
+            >
               Enregistrez mes informations
             </button>
             <br />
-            <button className="change-profil" onClick={deleteAccount}>
+            <button
+              aria-label="suppression de mon compte"
+              className="change-profil"
+              onClick={deleteAccount}
+            >
               Supprimez mon compte
             </button>
           </div>
@@ -188,7 +199,11 @@ export default function Profile() {
                   name="images"
                 ></img>
               ) : (
-                <img className="__imgPicture" src={pictureProfile} alt="" />
+                <img
+                  className="__imgPicture"
+                  src={pictureProfile}
+                  alt="photo de profil par défaut"
+                />
               )}
             </div>
 
@@ -204,25 +219,33 @@ export default function Profile() {
                 id="file"
                 className="input-file"
                 type="file"
-                accept=".png, .jpg, .jpeg, .gif"
+                accept=".png, .jpg, .jpeg, .webp "
                 name="images"
                 onChange={(e) => setProfilePicture(e.target.files[0])}
               ></input>
               <br />
-              <button className="pict-prof btn-post">Enregistrer</button>
+              <button
+                aria-label="envoyer une nouvelle photo de profil"
+                className="pict-prof btn-post"
+              >
+                Enregistrer
+              </button>
             </form>
             <div className="content-profil">
               <h3> Nom: </h3>
-              <div className="profil-content">{userData.lastName}</div>
-              <h3>Prénom:</h3>
-              <div className="profil-content">{userData.firstName}</div>
+              <div className="profil-content nom" aria-label="Nom:">
+                {userData.lastName}
+              </div>
+              <h3> Prénom:</h3>
+              <div className="profil-content prénom">{userData.firstName}</div>
               <h3>Adresse email :</h3>
-              <div className="profil-content"> {userData.email}</div>
+              <div className="profil-content email"> {userData.email}</div>
             </div>
             <button
               className="change-profil"
               id="update"
               onClick={handleModals}
+              aria-label="modifiez mon profil"
             >
               Modifiez mes informations
             </button>
