@@ -33,29 +33,7 @@ exports.likePost = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({ message: 'error ' + error });
   }
-  //   if (!found) {
-  //     await Likes.create({
-  //       postPostId: PostId,
-  //       userId: UserId,
-  //     });
-  //     res.status(201).json({
-  //       postPostId: PostId,
-  //       userId: UserId,
-  //       message: 'like',
-  //     });
-  //   } else {
-  //     await Likes.destroy({
-  //       where: {
-  //         postPostId: PostId,
-  //         userId: UserId,
-  //       },
-  //     });
-  //     res.json({
-  //       postPostId: PostId,
-  //       userId: UserId,
-  //       message: 'no like',
-  //     });
-  //   }
+
 };
 
 //VOIR TOUS LES LIKES
@@ -68,17 +46,3 @@ exports.getLikes = (req, res, next) => {
     });
 };
 
-exports.getAllLikes = (req, res, next) => {
-  // const likes = Likes.findAll({ include: User })
-  //   .then((likes) => res.status(201).json(likes))
-  //   .catch((error) => {
-  //     console.error(error);
-  //     res.status(400).json({ error: error });
-  //   });
-};
-
-// exports.getOneLike = (req, res, next) => {
-//   Likes.findOne({ where: { postPostId: req.params.id }, include: User })
-//     .then((likes) => res.status(200).json(likes))
-//     .catch((error) => res.status(404).json({ error }));
-// };

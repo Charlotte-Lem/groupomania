@@ -1,17 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-export default function NotFound() {
+
+const NotFound = () => {
   const navigate = useNavigate();
+  
   return (
     <div className="err">
       <h1>Oops, cette page n'existe pas</h1>
       <button
         aria-label=" page d'erreur retour à l'actualités "
         className="err btn-post"
-        onClick={() => navigate('/actus')}
+        onClick={() => navigate('/')}
       >
-        Retourner voir les actualités du moment
+        Retourner à l'accueil
       </button>
     </div>
   );
-}
+};
+export default NotFound;

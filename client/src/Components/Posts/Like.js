@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { api } from '../../Utils/api';
+
 import { BiLike } from 'react-icons/bi';
+
 function Like(props) {
+
   const [likes, setLikes] = useState(0);
   const [likedAction, setLikedAction] = useState(false);
   const token = JSON.parse(localStorage.getItem('token'));
   const userId = JSON.parse(localStorage.getItem('token')).userId;
-  const postId = props.postPostId;
+  
   const getLikes = async () => {
     const { data } = await axios.get(
       api + '/api/likes/getLikes',

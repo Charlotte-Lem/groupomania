@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   userForm: [],
-  // msgError: '',
+
 };
 
 function inputReducer(state = INITIAL_STATE, action) {
@@ -9,7 +9,7 @@ function inputReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         userForm: action.payload,
-        // msgError: 'Erreur : Cette email existe déjà',
+        
       };
     }
     case 'GET_LOGIN': {

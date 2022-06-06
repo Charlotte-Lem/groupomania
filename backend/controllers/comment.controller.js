@@ -1,7 +1,5 @@
 const Comment = require('../models/comment.model');
-const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const jwt = require('jsonwebtoken');
 
 //CREER UN COMM
 exports.createComment = (req, res, next) => {

@@ -1,9 +1,8 @@
 const User = require('../models/user.model');
-const Comment = require('../models/comment.model');
-const Post = require('../models/post.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+
 // //IMPORTATION DES variable d'environnement
 require('dotenv').config();
 
@@ -123,12 +122,14 @@ exports.userModify = (req, res) => {
             };
         User.update({ ...userObject }, { where: { id: req.params.id } })
           .then(() => {
-            if (req.file && filename !== undefined) {
-              fs.unlink(`images/${filename}`);
+            if (filename && req.file) {
+              fs.unlink(`images/${filename}`, (err) => {
+                if (err) console.log(err);
+              });
             }
             return res.status(200).json({ message: 'Success' });
           })
-          .catch((error) => res.status(500).json({ message: error }));
+          .catch((error) => res.status(500).json({ error }));
       })
       .catch((error) => res.status(500).json({ message: error }));
   }

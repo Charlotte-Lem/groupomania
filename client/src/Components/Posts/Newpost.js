@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { newPost } from '../../Actions/postAction';
 import { BiUpload } from 'react-icons/bi';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShare } from '@fortawesome/free-solid-svg-icons';
+import { FaShare } from 'react-icons/fa';
 
 export default function Newpost(props) {
-  // const token = JSON.parse(localStorage.getItem('token'));
 
   const dispatch = useDispatch();
 
@@ -90,7 +88,7 @@ export default function Newpost(props) {
         onClick={handleSubmit}
         className="publish-post"
       >
-        <FontAwesomeIcon icon={faShare} />
+        <FaShare className='edit-post__icon-share' />
       </button>
     </form>
   );

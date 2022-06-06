@@ -6,23 +6,23 @@
 }
 .container-cards,
 .content-edit {
-   max-width: 70vh;
-  
-  margin: 50px auto;
+  //  max-width: 70vh;
+  padding: 0;
+  // margin: 50px auto;
 
   @media screen and (max-width: 700px) {
-    margin: 0 20px;
+    //  margin: 0 20px;
   }
 }
 
 .card-container {
   border: 2px solid #fd2d01;
-  margin: 30px 0;
+  // margin: 30px 0;
   display: flex;
   border-radius: 10px;
   flex-direction: column;
   width: 100%;
-  padding: 10px;
+  // padding: 10px;
 
   // &:hover {
   //   transform: scale(1.009);
@@ -33,9 +33,15 @@
   // }
 }
 
-.no-feed{
-
-text-align: center;
-font-size: 35px;
-color: $color-primary;
+.no-feed {
+  text-align: center;
+  font-size: 35px;
+  color: $color-primary;
+}
+.feed {
+  max-width: 60vh;
+  margin: 0 auto;
+  @media screen and (max-width: 400px) {
+    margin: 0 20px;
+  }
 }

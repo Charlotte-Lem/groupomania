@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import Logout from '../Log/Logout';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FaUserAlt } from 'react-icons/fa';
 import axios from 'axios';
 import { api } from '../../Utils/api';
+
 export default function Nav() {
   const [userData, setUserData] = useState('');
-  const [profilePicture, setProfilePicture] = useState('');
 
   const accessToken = JSON.parse(localStorage.getItem('token')).token;
-
   const id = JSON.parse(localStorage.getItem('token')).userId;
+
   useEffect(() => {
     const dataAxios = async () => {
       const res = await axios.get(api + '/api/user/' + id, {
@@ -31,6 +29,7 @@ export default function Nav() {
     };
     dataAxios();
   }, [id, accessToken]);
+
   return (
     <nav>
       <div className="nav-container">
@@ -50,11 +49,9 @@ export default function Nav() {
           <NavLink className="nav-link" to="/">
             Actus
           </NavLink>
-          {/* <NavLink className="nav-link" to="/actus">
-            Posts
-          </NavLink> */}
+         
           <NavLink className="nav-link" to="/profil/:id">
-            <FontAwesomeIcon icon={faUser} /> Profil
+            <FaUserAlt className='="nav-link__icon' /> Profil
           </NavLink>
           <Logout />{' '}
         </div>

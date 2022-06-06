@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import pictureProfile from '../Assets/defaultUserPicture.png';
-import NavBar from '../Components/Nav/Navbar';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { api } from '../Utils/api';
-import { useNavigate } from 'react-router-dom';
+import pictureProfile from '../Assets/defaultUserPicture.png';
+import NavBar from '../Components/Nav/Navbar';
 import { BiUpload } from 'react-icons/bi';
 export default function Profile() {
   const [userData, setUserData] = useState('');
@@ -73,7 +73,7 @@ export default function Profile() {
     formData.append('images', profilePicture);
     formData.append('userId', id);
 
-    const regex = /\.(jpe?g|png|gif)$/i;
+    const regex = /\.(jpe?g|png|gif|webp)$/i;
     const checkType = profilePicture.type.match('image/', regex);
 
     if (checkType !== null) {
@@ -87,15 +87,15 @@ export default function Profile() {
         .then((response) => {
           console.log(response);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       alert('Veuillez renseigner un fichier de type image.');
     }
   };
 
-  // //suppression du compte
+  //suppression du compte
 
   const deleteAccount = () => {
     axios
@@ -110,7 +110,7 @@ export default function Profile() {
         localStorage.clear();
         window.location.reload();
       })
-    
+
       .catch((error) => {
         console.error(error);
       });
@@ -208,9 +208,6 @@ export default function Profile() {
             </div>
 
             <form onSubmit={modifyPicture} className="pict-prof">
-              {' '}
-              {/* Modifier la photo de profile */}
-              {/* <p>Changer la photo de profil :</p> */}
               <label htmlFor="file" className="label-file">
                 <BiUpload />
                 Changez votre photo

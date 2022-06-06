@@ -3,17 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import 'moment/locale/fr';
 import pictureProfile from '../../Assets/defaultUserPicture.png';
-import { FaRegTrashAlt } from 'react-icons/fa';
-import { ImPencil2 } from 'react-icons/im';
-
 import { deleteComment, editCmt } from '../../Actions/postAction';
-//fontawesome icone import
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faTrash,
-  faPencil,
-  faPaperPlane,
-} from '@fortawesome/free-solid-svg-icons';
+import { ImPencil2 } from 'react-icons/im';
+import { FaRegTrashAlt, FaRegPaperPlane } from 'react-icons/fa';
 
 export default function Comment(props) {
   const dispatch = useDispatch();
@@ -47,7 +39,7 @@ export default function Comment(props) {
     awaitDelComment();
     window.location.reload();
   };
-  
+
   const handleInput = (e) => {
     if (e.target.id === 'edit-cmt') {
       setComment({
@@ -56,9 +48,8 @@ export default function Comment(props) {
       });
     }
   };
-  //fonction pour edit d'un commentaire
-  const editComment = (commentid) => {
-    // fonction pour commentaire
+  //fonction pour update d'un comm
+  const updateComment = (commentid) => {
     async function awaitEditComment() {
       const result = await editCmt(commentid, comment.message);
       if (!result) {
@@ -74,7 +65,7 @@ export default function Comment(props) {
     window.location.reload();
   };
 
-  // toggle pour affichage de l'edit d'un commentaire
+  // toggle pour input d'update d'un comm
   const handleToggle = () => {
     setToggle(!toggle);
   };
@@ -122,23 +113,23 @@ export default function Comment(props) {
           )}
         </div>
       </div>
-      {/* si le toggle est actif alors on affiche les champs d'édition de commentaire */}
+      {/* Toggle pour afficher l'input pour modifier les commentaires  */}
       {toggle ? (
-        <div className="cmtcmt">
+        <div className="edit">
           <label htmlFor="edit-cmt"></label>
           <input
             onChange={handleInput}
             value={comment.message}
-            className="cmt"
+            className="edit-cmt__input"
             type="text"
             id="edit-cmt"
           />
           <button
             aria-label="envoyer le commentaire modifié"
-            onClick={(e) => e.preventDefault(editComment(props.id))}
-            className="cmt"
+            onClick={(e) => e.preventDefault(updateComment(props.id))}
+            className="edit-cmt__btn"
           >
-            <FontAwesomeIcon icon={faPaperPlane} />
+            <FaRegPaperPlane className="edit-cmt__icon-plane" />
           </button>
         </div>
       ) : (

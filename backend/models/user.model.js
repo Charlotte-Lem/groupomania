@@ -1,11 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-
 const Comment = require('./comment.model');
 const Like = require('./like.model');
-
 const Post = require('./post.model');
-
 const User = sequelize.define(
   'user',
   {
@@ -30,6 +27,7 @@ const User = sequelize.define(
     timestamps: false,
   }
 );
+
 Post.hasMany(Like, { onDelete: 'CASCADE' });
 Like.belongsTo(Post, { onDelete: 'CASCADE' });
 

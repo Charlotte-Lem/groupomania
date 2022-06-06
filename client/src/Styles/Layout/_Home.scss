@@ -53,7 +53,7 @@ h2 {
     padding: 0;
     list-style: none;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
 
     li {
       cursor: pointer;
@@ -61,29 +61,21 @@ h2 {
       margin: 5px 0;
     }
     .active-btn {
+      // background-color: $color-tertiary;
       background-image: linear-gradient(
         to right,
-        #5d4157 0%,
-        #a8caba 51%,
-        #5d4157 100%
+        $color-primary 0%,
+        $color-tertiary 51%,
+        $color-primary 100%
       );
       padding: 10px 20px;
-
       text-align: center;
-      // text-transform: uppercase;
       transition: 0.5s;
       background-size: 200% auto;
       color: white;
       box-shadow: 0 0 20px #eee;
       border-radius: 10px;
       display: block;
-
-      &:hover {
-        background-position: right center; /* change the direction of the change here */
-        color: rgb(55, 8, 66);
-        text-decoration: none;
-        font-weight: 600;
-      }
     }
   }
 
@@ -132,7 +124,7 @@ h2 {
     align-content: center;
     flex-direction: column;
     gap: 5px;
-    width: 90%;
+    width: 70%;
     margin-left: 0;
     margin-top: 8%;
   }

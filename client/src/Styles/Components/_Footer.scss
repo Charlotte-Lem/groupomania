@@ -5,24 +5,30 @@
   flex-direction: column;
   align-items: center;
   align-content: center;
-  padding: 10px 0 20px 0;
+  padding: 0 0 40px 0;
   &__logo {
     background-repeat: no-repeat;
   }
   &__link {
-    bottom: 30px;
-    left: 325px;
+    @media screen and (max-width: 980px) {
+      font-size: 18px;
+    }
+    font-style: italic;
     font-size: 25px;
     text-decoration: none;
-    color: $color-tertiary;
+    color: black;
     &:hover {
       color: $color-primary;
     }
-    // color: rgb(13, 13, 13);
   }
   &__icon {
-    font-size: 28px;
-
-    //    color: ;
+    margin-bottom: -8px;
+    font-size: 37px;
+    @media screen and (max-width: 980px) {
+      align-content: center;
+      flex-direction: column;
+      gap: 5px;
+      margin-left: 0;
+    }
   }
 }

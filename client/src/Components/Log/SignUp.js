@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import SignIn from './SignIn';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { api } from '../../Utils/api';
 
 export default function Signup() {
   const [formSubmit, setFormSubmit] = useState(true);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // const params = useParams();
 
   const [user, setUser] = useState({
     email: '',
@@ -19,7 +14,6 @@ export default function Signup() {
     msgError: '',
   });
 
-  const [errorres, setErrorres] = useState(null);
 
   const handleForm = (e) => {
     const errorUser = document.querySelector('.errorUser');

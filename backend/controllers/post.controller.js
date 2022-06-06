@@ -1,11 +1,9 @@
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
-const Like = require('../models/like.model');
 
 const Comment = require('../models/comment.model');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-const Likes = require('../models/like.model');
 
 // //IMPORTATION DES variable d'environnement
 require('dotenv').config();
@@ -34,7 +32,6 @@ exports.createPost = (req, res, next) => {
     .then((data) => res.status(200).json({ data }))
     .catch((error) => res.status(401).json({ message: error }));
 };
-
 
 //MODIFICATION D UN POST
 exports.updatePost = (req, res, next) => {
@@ -72,7 +69,6 @@ exports.updatePost = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ message: error }));
 };
-
 
 //TROUVER UN POST
 exports.readOnePost = (req, res, next) => {
@@ -157,4 +153,3 @@ exports.deletePost = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
-

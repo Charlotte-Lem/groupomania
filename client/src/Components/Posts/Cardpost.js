@@ -2,25 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import axios from 'axios';
-import pictureProfile from '../../Assets/defaultUserPicture.png';
-import {
-  deletePost,
-  deleteComment,
-  commentPost,
-  likePost,
-} from '../../Actions/postAction';
+import { api } from '../../Utils/api';
+import { deletePost } from '../../Actions/postAction';
 import Like from './Like';
 import Comment from './Comment';
-import { api } from '../../Utils/api';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import pictureProfile from '../../Assets/defaultUserPicture.png';
 import {
-  faTrash,
-  faPencil,
-  faPaperPlane,
-} from '@fortawesome/free-solid-svg-icons';
-import { FaRegCommentDots, FaRegHeart } from 'react-icons/fa';
-import { BiLike } from 'react-icons/bi';
+  FaRegCommentDots,
+  FaRegTrashAlt,
+  FaPencilAlt,
+  FaRegPaperPlane,
+} from 'react-icons/fa';
 
 import { Link } from 'react-router-dom';
 
@@ -135,10 +128,6 @@ export default function Cardpost(props) {
     return filterArray.length;
   };
 
-  //fonction like de post
-  const [like, setLike] = useState();
-  const [liked, setLiked] = useState(false);
-
   return (
     <ul className="container-cards ">
       <li className="container-cards card" id={props.id}>
@@ -181,9 +170,9 @@ export default function Cardpost(props) {
                 <Link
                   className="btn-post"
                   aria-label="lien vers le post"
-                  to={`/${props.id}`}
+                  to={`/post/${props.id}`}
                 >
-                  <FontAwesomeIcon icon={faPencil} />
+                  <FaPencilAlt className="post-btn__ icon-pencil" />
                 </Link>
                 <button
                   type="button"
@@ -191,7 +180,7 @@ export default function Cardpost(props) {
                   aria-label="Suppression du post"
                   onClick={(e) => e.preventDefault(handleDeletePost(props.id))}
                 >
-                  <FontAwesomeIcon icon={faTrash} />
+                  <FaRegTrashAlt className="post-btn__ icon-trash" />
                 </button>
               </div>
             ) : null}
@@ -218,7 +207,7 @@ export default function Cardpost(props) {
               className="comment-container__btn-comment"
             >
               {' '}
-              <FontAwesomeIcon icon={faPaperPlane} />
+              <FaRegPaperPlane className="comment-container__icon-plane" />
             </button>
           </form>
           <div className="post-like_com">

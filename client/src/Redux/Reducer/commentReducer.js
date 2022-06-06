@@ -46,14 +46,3 @@ function commentReducer(state = INITIAL_STATE, action) {
 
 export default commentReducer;
 
-// case 'EDIT_CMT': {
-//   let newArr = [...state.cmtsArray];
-//   const findIndex = newArr.findIndex(
-//     (comment) => comment.id === action.payload.id
-//   );
-//   newArr[findIndex].msg = action.payload.msg;
-//   return {
-//     ...state,
-//     cmtsArr: newArr,
-//   };
-// }

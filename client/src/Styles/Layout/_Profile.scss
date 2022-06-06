@@ -7,13 +7,11 @@
   align-items: center;
   font-size: 25px;
   @media screen and (max-width: 800px) {
-
-
     font-size: 16px;
   }
 }
 .label-file:hover {
-  color: #00b1ca;
+  color: $color-primary;
 }
 
 // et on masque le input
@@ -32,7 +30,7 @@
   margin: 40px auto;
 
   @media screen and (max-width: 800px) {
-    max-width: 280px;
+    max-width: 80%;
 
     font-size: 14px;
   }
@@ -53,28 +51,22 @@
   align-items: center;
   .change-picture,
   .change-profil {
+    cursor: pointer;
     color: rgb(55, 8, 66);
     font-weight: 700;
     padding: 8px 18px;
     border-radius: 15px;
-    background-image: linear-gradient(
-      to right,
-      #403b4a 0%,
-      #e7e9bb 51%,
-      #403b4a 100%
-    );
 
+    margin: 0 10px 20px 0;
     text-align: center;
     text-transform: uppercase;
     transition: 0.5s;
     background-size: 200% auto;
-    border: transparent;
-    margin-bottom: 20px;
-    box-shadow: 0 0 20px #eee;
+    border: black;
 
     display: block;
     &:hover {
-      background-position: right center; /* change the direction of the change here */
+      color: $color-primary;
       text-decoration: none;
     }
   }
@@ -86,17 +78,12 @@
   flex-wrap: wrap;
   align-items: center;
   &.btn-post {
+    cursor: pointer;
     font-size: 14px;
     color: rgb(55, 8, 66);
     font-weight: 700;
     padding: 8px 18px;
     border-radius: 15px;
-    background-image: linear-gradient(
-      to right,
-      #403b4a 0%,
-      #e7e9bb 51%,
-      #403b4a 100%
-    );
 
     text-align: center;
     text-transform: uppercase;
@@ -104,12 +91,11 @@
     background-size: 200% auto;
     border: transparent;
     margin-bottom: 20px;
-    box-shadow: 0 0 20px #eee;
+    text-decoration: none;
 
     display: block;
     &:hover {
-      background-position: right center; /* change the direction of the change here */
-      text-decoration: none;
+      color: $color-primary;
     }
   }
 }
@@ -163,7 +149,7 @@
 }
 
 .input {
-  width: 300px;
+  max-width: 300px;
   min-width: 100px;
   margin-bottom: 20px;
   padding: 8px 0 8px 10px;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BiUpload } from 'react-icons/bi';
 
 import { getPost } from '../../Actions/postAction';
@@ -9,7 +9,6 @@ import NavBar from '../Nav/Navbar';
 
 export default function Post(props) {
   const params = useParams(props);
-  const navigate = useNavigate();
   const postId = params.postId;
   const token = JSON.parse(localStorage.getItem('token'));
 
@@ -83,9 +82,7 @@ export default function Post(props) {
         console.error(error);
       });
   };
-  const back = () => {
-    navigate('/');
-  };
+
   return (
     <div>
       <NavBar />
@@ -96,18 +93,17 @@ export default function Post(props) {
               <label className="post-edit__label" htmlFor="description">
                 Votre post :
               </label>
-
               <input
                 type="text"
                 className="description-post__form"
                 id="description"
                 name="description"
                 placeholder="Ecrivez un nouveau titre ici..."
-                // value={currentPost.description}
+                value={currentPost.description}
                 onChange={handleInputChange}
                 aria-label="Ecrivez un nouveau titre ici"
               />
-            </div>{' '}
+            </div>
             <button
               aria-label="modifier le titre du post"
               className="input__btn"
@@ -125,7 +121,7 @@ export default function Post(props) {
               ></img>
             ) : null}
           </div>
-          {/* <form onSubmit={''}> */}
+
           <form className="form-edit" onSubmit={updateImagePost}>
             <label htmlFor="file" className="label-file">
               <BiUpload className="icon-post" />
@@ -137,7 +133,6 @@ export default function Post(props) {
               type="file"
               accept=".png, .jpg, .jpeg, .gif"
               name="images"
-              // value={currentPost.imagePost}
               onChange={(e) => setImagePost(e.target.files[0])}
             ></input>
             <button

@@ -15,7 +15,6 @@ export default function Log() {
       setSignUpModal(false);
     }
   };
-
   return (
     <>
       <div className="connection-form">
