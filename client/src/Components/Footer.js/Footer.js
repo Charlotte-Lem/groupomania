@@ -13,7 +13,6 @@ export default function Footer() {
         height="150"
         width="150"
       />
-      {/* <h2 className="footer__title">Groupomania</h2> */}
       <a className="footer__link" href="#">
         Un problème? Contactez un admin{' '}
         <GoMail className="footer__icon"  />

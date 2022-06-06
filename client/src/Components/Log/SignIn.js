@@ -113,6 +113,3 @@ export default function SignIn() {
   );
 }
 
-// <Link
-//       to='/'
-//       className='link_login'>Identifiez vous dès maintenant</Link>

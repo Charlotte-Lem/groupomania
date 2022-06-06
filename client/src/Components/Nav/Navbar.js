@@ -53,7 +53,7 @@ export default function Nav() {
           <NavLink className="nav-link" to="/profil/:id">
             <FaUserAlt className='="nav-link__icon' /> Profil
           </NavLink>
-          <Logout />{' '}
+          <Logout />
         </div>
       </div>
     </nav>

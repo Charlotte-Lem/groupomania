@@ -7,7 +7,7 @@ const ScrollToTop = () => {
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   const visibleScroll = () => {
-    // sur true quand l'utilisateur fait défiler 1000pixels
+    // sur true quand l'utilisateur fait défiler 500pixels
     if (window.pageYOffset > 500) {
       setShowTopBtn(true);
     } else {
@@ -24,7 +24,6 @@ const ScrollToTop = () => {
   };
   useEffect(() => {
     // evenement qui définit l'état du state
-
     window.addEventListener('scroll', visibleScroll);
     return () => {
       window.removeEventListener('scroll', visibleScroll);
@@ -32,10 +31,10 @@ const ScrollToTop = () => {
   }, []);
   return (
     <div className="top-to-btm">
-      {' '}
+
       {showTopBtn && (
         <FaAngleUp className="icon-position icon-style" onClick={goToTop} />
-      )}{' '}
+      )}
     </div>
   );
 };
